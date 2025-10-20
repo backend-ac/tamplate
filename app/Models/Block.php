@@ -13,6 +13,7 @@ class Block extends Model
     protected $fillable = [
         'page_id',
         'type',
+        'custom_name',
         'enabled',
         'sort',
         'content',
@@ -20,6 +21,7 @@ class Block extends Model
 
     protected $casts = [
         'enabled' => 'boolean',
+        'custom_name' => 'array',
         'content' => 'array',
     ];
 

@@ -2,8 +2,9 @@
     <div class="stations__wrapper container">
         <div class="why-us__wrapper">
             <div class="why-us__left">
-                <h2 class="title">{{ $data['title'] ?? 'Мобильные топливозаправочные станции' }}</h2>
+                <h2 class="title">{{ $customName ?? $data['title'] ?? 'Мобильные топливозаправочные станции' }}</h2>
                 <p>{{ $data['description'] ?? 'Надежное и удобное решение для хранения и заправки топлива в любом месте.' }}</p>
+                @if(($data['text'] ?? null))<p>{{ $data['text'] }}</p>@endif
                 @if(($data['cta_text'] ?? null))
                     <a href="{{ $data['cta_href'] ?? 'javascript:;' }}" class="btn-hov open-modal">{{ $data['cta_text'] }}</a>
                 @endif

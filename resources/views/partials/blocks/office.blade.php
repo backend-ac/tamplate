@@ -1,6 +1,7 @@
 <section class="office indent">
     <div class="office__wrapper">
-        <h2 class="title">{{ $data['title'] ?? 'Нефтебаза и Офис' }}</h2>
+        <h2 class="title">{{ $customName ?? $data['title'] ?? 'Нефтебаза и Офис' }}</h2>
+        @if(($data['text'] ?? null))<p>{{ $data['text'] }}</p>@endif
         <div class="swiper container office__slider">
             <div class="swiper-wrapper">
                 @foreach(($data['images'] ?? ['model-img.png','model-img.png']) as $img)
