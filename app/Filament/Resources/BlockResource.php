@@ -56,6 +56,16 @@ class BlockResource extends Resource
                 Forms\Components\Toggle::make('enabled')->default(true),
                 TextInput::make('sort')->numeric()->default(0)->required(),
 
+                Tabs::make('Custom Name')
+                    ->tabs(collect($locales)->map(function ($locale) {
+                        return Tabs\Tab::make('Name ' . strtoupper(is_array($locale) ? ($locale['value'] ?? 'ru') : $locale))
+                            ->schema([
+                                TextInput::make('custom_name.' . (is_array($locale) ? ($locale['value'] ?? 'ru') : $locale))
+                                    ->label('Custom Block Name')
+                                    ->helperText('Оставьте пустым для использования названия по умолчанию')
+                            ]);
+                    })->toArray()),
+
                 Tabs::make('Locales')
                     ->tabs(collect($locales)->map(function ($locale) {
                         return Tabs\Tab::make(strtoupper(is_array($locale) ? ($locale['value'] ?? 'ru') : $locale))
@@ -72,6 +82,7 @@ class BlockResource extends Resource
                                                     $fields = [
                                                         TextInput::make('title')->label('Title'),
                                                         Textarea::make('subtitle')->label('Subtitle'),
+                                                        Textarea::make('text')->label('Text under title'),
                                                         TextInput::make('cta_text')->label('CTA Text'),
                                                         TextInput::make('cta_href')->label('CTA Link'),
                                                     ];
@@ -84,10 +95,11 @@ class BlockResource extends Resource
                                                     $fields = [
                                                         TextInput::make('title')->label('Title'),
                                                         Textarea::make('description')->label('Description'),
+                                                        Textarea::make('text')->label('Text under title'),
                                                         Repeater::make('items')->label('Items')->schema([
-                                                            TextInput::make('img')->label('Image file'),
-                                                            TextInput::make('title')->label('Item title'),
-                                                            Textarea::make('text')->label('Item text'),
+                                                            TextInput::make('img')->label('Image file')->helperText('Optional'),
+                                                            TextInput::make('title')->label('Item title')->helperText('Optional'),
+                                                            Textarea::make('text')->label('Item text')->helperText('Optional'),
                                                         ])->collapsed(),
                                                         TextInput::make('cta_text')->label('CTA Text'),
                                                         TextInput::make('cta_href')->label('CTA Link'),
@@ -96,10 +108,12 @@ class BlockResource extends Resource
                                                 case 'model':
                                                     $fields = [
                                                         TextInput::make('title_1')->label('Title 1'),
+                                                        Textarea::make('text_1')->label('Text under title 1'),
                                                         Repeater::make('images_1')->label('Images 1')->schema([
                                                             TextInput::make('value')->label('Image file'),
                                                         ])->collapsed(),
                                                         TextInput::make('title_2')->label('Title 2'),
+                                                        Textarea::make('text_2')->label('Text under title 2'),
                                                         Repeater::make('images_2')->label('Images 2')->schema([
                                                             TextInput::make('value')->label('Image file'),
                                                         ])->collapsed(),
@@ -108,6 +122,7 @@ class BlockResource extends Resource
                                                 case 'office':
                                                     $fields = [
                                                         TextInput::make('title')->label('Title'),
+                                                        Textarea::make('text')->label('Text under title'),
                                                         Repeater::make('images')->label('Images')->schema([
                                                             TextInput::make('value')->label('Image file'),
                                                         ])->collapsed(),
@@ -116,6 +131,7 @@ class BlockResource extends Resource
                                                 case 'certificate':
                                                     $fields = [
                                                         TextInput::make('title')->label('Title'),
+                                                        Textarea::make('text')->label('Text under title'),
                                                         Repeater::make('images')->label('Certificates')->schema([
                                                             TextInput::make('value')->label('Image file'),
                                                         ])->collapsed(),
@@ -124,8 +140,9 @@ class BlockResource extends Resource
                                                 case 'partners':
                                                     $fields = [
                                                         TextInput::make('title')->label('Title'),
+                                                        Textarea::make('text')->label('Text under title'),
                                                         Repeater::make('logos')->label('Logos')->schema([
-                                                            TextInput::make('img')->label('Logo image'),
+                                                            TextInput::make('img')->label('Logo image')->helperText('Optional'),
                                                         ])->collapsed(),
                                                     ];
                                                     break;
@@ -133,6 +150,7 @@ class BlockResource extends Resource
                                                     $fields = [
                                                         TextInput::make('title')->label('Title'),
                                                         Textarea::make('description')->label('Description'),
+                                                        Textarea::make('text')->label('Text under title'),
                                                     ];
                                             }
                                             return $fields;

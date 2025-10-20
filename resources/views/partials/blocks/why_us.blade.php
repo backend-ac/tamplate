@@ -1,8 +1,9 @@
 <section class="why-us container indent">
     <div class="why-us__wrapper">
         <div class="why-us__left">
-            <h2 class="title">{{ $data['title'] ?? 'Почему выбирают нас' }}</h2>
+            <h2 class="title">{{ $customName ?? $data['title'] ?? 'Почему выбирают нас' }}</h2>
             <p>{{ $data['description'] ?? 'Мы обеспечиваем стабильные поставки качественного дизельного топлива и предоставляем надежный сервис.' }}</p>
+            @if(($data['text'] ?? null))<p>{{ $data['text'] }}</p>@endif
             @if(($data['cta_text'] ?? null))
                 <a href="{{ $data['cta_href'] ?? 'javascript:;' }}" class="btn-hov open-modal">{{ $data['cta_text'] }}</a>
             @endif

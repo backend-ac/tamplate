@@ -1,5 +1,6 @@
 <section class="partners indent">
-    <h2 class="title">{{ $data['title'] ?? 'Партнеры' }}</h2>
+    <h2 class="title">{{ $customName ?? $data['title'] ?? 'Партнеры' }}</h2>
+    @if(($data['text'] ?? null))<p>{{ $data['text'] }}</p>@endif
     <div class="swiper container certificate__slider">
         <div class="swiper-wrapper">
             @foreach(($data['logos'] ?? [['img' => 'partners.png'], ['img' => 'partners.png']]) as $logo)
