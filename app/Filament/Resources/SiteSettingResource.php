@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\SiteSettingResource\Pages;
 use App\Models\SiteSetting;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
@@ -27,6 +28,14 @@ class SiteSettingResource extends Resource
             ->schema([
                 Forms\Components\Toggle::make('is_multilingual')->label('Multilingual')->default(true),
                 TextInput::make('default_locale')->label('Default locale')->default('ru')->required(),
+                FileUpload::make('logo')
+                    ->label('Logo')
+                    ->image()
+                    ->directory('logos')
+                    ->visibility('public')
+                    ->acceptedFileTypes(['image/svg+xml', 'image/png', 'image/jpeg', 'image/webp'])
+                    ->maxSize(2048)
+                    ->helperText('Upload site logo (SVG, PNG, JPG, WEBP, max 2MB)'),
                 Repeater::make('locales')
                     ->label('Available locales')
                     ->schema([
@@ -41,6 +50,7 @@ class SiteSettingResource extends Resource
     public static function table(Table $table): Table
     {
         return $table->columns([
+            Tables\Columns\ImageColumn::make('logo')->label('Logo'),
             Tables\Columns\IconColumn::make('is_multilingual')->boolean(),
             Tables\Columns\TextColumn::make('default_locale'),
         ])->actions([

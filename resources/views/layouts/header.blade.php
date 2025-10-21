@@ -1,7 +1,7 @@
 <header class="header">
     <div class="container">
         <div class="header__wrapper">
-            <a href="/"><img src="./img/logo.svg" alt=""></a>
+            <a href="/"><img src="{{ $siteSettings?->logo ?? asset('img/logo.svg') }}" alt=""></a>
             <div class="burger">
                 <span></span>
                 <span></span>

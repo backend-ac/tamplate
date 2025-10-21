@@ -13,6 +13,7 @@ class SiteSetting extends Model
         'is_multilingual',
         'default_locale',
         'locales',
+        'logo',
     ];
 
     protected $casts = [
