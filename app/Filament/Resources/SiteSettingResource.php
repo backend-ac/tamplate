@@ -8,7 +8,9 @@ use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -44,6 +46,49 @@ class SiteSettingResource extends Resource
                     ->collapsed()
                     ->itemLabel('Locale')
                     ->columns(1),
+                
+                Section::make('Metric Tags')
+                    ->description('Add analytics and tracking scripts')
+                    ->schema([
+                        Repeater::make('head_metrics')
+                            ->label('Head Metrics (Google Analytics, Meta Pixel, etc.)')
+                            ->schema([
+                                TextInput::make('name')
+                                    ->label('Name')
+                                    ->placeholder('e.g., Google Analytics, Yandex Metrika')
+                                    ->required(),
+                                Textarea::make('code')
+                                    ->label('Code')
+                                    ->placeholder('Paste your tracking code here')
+                                    ->rows(5)
+                                    ->required()
+                                    ->helperText('This code will be inserted in the <head> section'),
+                            ])
+                            ->collapsed()
+                            ->itemLabel(fn (array $state): ?string => $state['name'] ?? 'Metric')
+                            ->columns(1)
+                            ->defaultItems(0),
+                        
+                        Repeater::make('body_metrics')
+                            ->label('Body Metrics (GTM, etc.)')
+                            ->schema([
+                                TextInput::make('name')
+                                    ->label('Name')
+                                    ->placeholder('e.g., Google Tag Manager')
+                                    ->required(),
+                                Textarea::make('code')
+                                    ->label('Code')
+                                    ->placeholder('Paste your tracking code here')
+                                    ->rows(5)
+                                    ->required()
+                                    ->helperText('This code will be inserted at the beginning of <body>'),
+                            ])
+                            ->collapsed()
+                            ->itemLabel(fn (array $state): ?string => $state['name'] ?? 'Metric')
+                            ->columns(1)
+                            ->defaultItems(0),
+                    ])
+                    ->collapsible(),
             ]);
     }
 

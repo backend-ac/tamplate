@@ -13,9 +13,23 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    
+    {{-- Head Metrics --}}
+    @if($siteSettings && $siteSettings->head_metrics)
+        @foreach($siteSettings->head_metrics as $metric)
+            {!! $metric['code'] ?? '' !!}
+        @endforeach
+    @endif
 </head>
 
 <body>
+{{-- Body Metrics --}}
+@if($siteSettings && $siteSettings->body_metrics)
+    @foreach($siteSettings->body_metrics as $metric)
+        {!! $metric['code'] ?? '' !!}
+    @endforeach
+@endif
+
 <div class="wrapper">
 
 @include('layouts.header')

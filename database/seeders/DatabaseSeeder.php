@@ -12,6 +12,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call(AdminUserSeeder::class);
+        
         \App\Models\SiteSetting::query()->firstOrCreate([], [
             'is_multilingual' => true,
             'default_locale' => 'ru',
