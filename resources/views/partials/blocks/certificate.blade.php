@@ -1,10 +1,10 @@
 <section class="certificate office indent">
     <div class="office__wrapper">
-        <h2 class="title">{{ $customName ?? $data['title'] ?? 'Сертификаты' }}</h2>
+        <h2 class="title">{{ $customName ?? $data['title'] ?? '' }}</h2>
         @if(($data['text'] ?? null))<p>{{ $data['text'] }}</p>@endif
         <div class="swiper container certificate__slider">
             <div class="swiper-wrapper">
-                @foreach(($data['images'] ?? ['certificate.png','certificate.png']) as $img)
+                @foreach(($data['images'] ?? []) as $img)
                     <div class="swiper-slide">
                         <div class="certificate__slide">
                             @php($file = is_array($img) ? ($img['value'] ?? $img['img'] ?? '') : $img)

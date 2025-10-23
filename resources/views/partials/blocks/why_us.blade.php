@@ -1,15 +1,15 @@
 <section class="why-us container indent">
     <div class="why-us__wrapper">
         <div class="why-us__left">
-            <h2 class="title">{{ $customName ?? $data['title'] ?? 'Почему выбирают нас' }}</h2>
-            <p>{{ $data['description'] ?? 'Мы обеспечиваем стабильные поставки качественного дизельного топлива и предоставляем надежный сервис.' }}</p>
+            <h2 class="title">{{ $customName ?? $data['title'] ?? '' }}</h2>
+            <p>{{ $data['description'] ?? '' }}</p>
             @if(($data['text'] ?? null))<p>{{ $data['text'] }}</p>@endif
             @if(($data['cta_text'] ?? null))
                 <a href="{{ $data['cta_href'] ?? 'javascript:;' }}" class="btn-hov open-modal">{{ $data['cta_text'] }}</a>
             @endif
         </div>
         <div class="why-us__right">
-            @foreach(($data['items'] ?? [["img"=>'assortment-img.svg','title'=>'Всегда в наличии','text'=>'обеспечиваем бесперебойные поставки дизельного топлива']]) as $item)
+            @foreach(($data['items'] ?? []) as $item)
                 @php($img = is_array($item) ? ($item['img'] ?? $item['value'] ?? 'assortment-img.svg') : 'assortment-img.svg')
                 @php($title = is_array($item) ? ($item['title'] ?? '') : (string)$item)
                 @php($text = is_array($item) ? ($item['text'] ?? '') : '')

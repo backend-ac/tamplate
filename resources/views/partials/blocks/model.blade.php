@@ -4,7 +4,7 @@
         @if(($data['text_1'] ?? null))<p>{{ $data['text_1'] }}</p>@endif
     @endif
     <div class="model__wrapper">
-        @foreach(($data['images_1'] ?? ['model-img.png']) as $img)
+        @foreach(($data['images_1'] ?? []) as $img)
             @php($file = is_array($img) ? ($img['value'] ?? $img['img'] ?? '') : $img)
             <img src="{{ asset('img/' . $file) }}" alt="">
         @endforeach
@@ -14,7 +14,7 @@
         @if(($data['text_2'] ?? null))<p>{{ $data['text_2'] }}</p>@endif
     @endif
     <div class="model__wrapper">
-        @foreach(($data['images_2'] ?? ['model-img2.png']) as $img)
+        @foreach(($data['images_2'] ?? []) as $img)
             @php($file = is_array($img) ? ($img['value'] ?? $img['img'] ?? '') : $img)
             <img src="{{ asset('img/' . $file) }}" alt="">
         @endforeach

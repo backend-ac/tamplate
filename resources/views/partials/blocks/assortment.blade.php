@@ -1,9 +1,9 @@
 <section class="assortment container indent">
-    <h2 class="title">{{ $customName ?? $data['title'] ?? 'Наш ассортимент топлива' }}</h2>
-    <p>{{ $data['description'] ?? 'Мы предлагаем широкий выбор российского и казахстанского дизельного топлива...' }}</p>
+    <h2 class="title">{{ $customName ?? $data['title'] ?? '' }}</h2>
+    <p>{{ $data['description'] ?? '' }}</p>
     @if(($data['text'] ?? null))<p>{{ $data['text'] }}</p>@endif
     <div class="assortment__wrapper">
-        @foreach(($data['items'] ?? [["img"=>'assortment-img.svg','title'=>'Зимнее дизельное топливо','text'=>'предназначено для эксплуатации при температурах от –15 °С до –35 °С.']]) as $item)
+        @foreach(($data['items'] ?? []) as $item)
             @php($img = is_array($item) ? ($item['img'] ?? $item['value'] ?? 'assortment-img.svg') : 'assortment-img.svg')
             @php($title = is_array($item) ? ($item['title'] ?? '') : (string)$item)
             @php($text = is_array($item) ? ($item['text'] ?? '') : '')
