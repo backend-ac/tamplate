@@ -97,6 +97,7 @@ class BlockResource extends Resource
                                     ->schema(function (Get $get) {
                                         $type = $get('../../type');
                                         Log::info('Block type: ' . $type);
+                                        Log::info('Get type: ' . print_r($get, true));
                                         if (!$type) {
                                             return [];
                                         }
