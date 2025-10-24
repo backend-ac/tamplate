@@ -17,6 +17,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
 use Filament\Tables;
+use Illuminate\Support\Facades\Log;
 
 class BlockResource extends Resource
 {
@@ -95,14 +96,9 @@ class BlockResource extends Resource
                                     ->columns(2)
                                     ->schema(function (Get $get) {
                                         $type = $get('../../type');
-                                        
+                                        Log::info('Block type: ' . $type);
                                         if (!$type) {
-                                            return [
-                                                Forms\Components\Placeholder::make('select_type')
-                                                    ->label('')
-                                                    ->content('Please select a block type first')
-                                                    ->columnSpanFull(),
-                                            ];
+                                            return [];
                                         }
 
                                         switch ($type) {
