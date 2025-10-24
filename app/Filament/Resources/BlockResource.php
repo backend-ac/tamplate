@@ -26,7 +26,7 @@ class BlockResource extends Resource
 
     public static function form(Form $form): Form
     {
-        $locales = \App\Models\SiteSetting::query()->first()?->locales ?? ['ru','en','kk'];
+        $locales = \App\Models\SiteSetting::query()->first()?->locales ?? ['ru', 'en', 'kk'];
 
         return $form
             ->schema([
@@ -50,7 +50,6 @@ class BlockResource extends Resource
                         'certificate' => 'Certificate',
                         'partners' => 'Partners',
                     ])
-                    ->reactive()
                     ->required(),
 
                 Forms\Components\Toggle::make('enabled')->default(true),
@@ -58,107 +57,131 @@ class BlockResource extends Resource
 
                 Tabs::make('Custom Name')
                     ->tabs(collect($locales)->map(function ($locale) {
-                        return Tabs\Tab::make('Name ' . strtoupper(is_array($locale) ? ($locale['value'] ?? 'ru') : $locale))
+                        $key = is_array($locale) ? ($locale['value'] ?? 'ru') : $locale;
+                        return Tabs\Tab::make('Name ' . strtoupper($key))
                             ->schema([
-                                TextInput::make('custom_name.' . (is_array($locale) ? ($locale['value'] ?? 'ru') : $locale))
+                                TextInput::make("custom_name.$key")
                                     ->label('Custom Block Name')
-                                    ->helperText('Оставьте пустым для использования названия по умолчанию')
+                                    ->helperText('Оставьте пустым для использования названия по умолчанию'),
                             ]);
                     })->toArray()),
 
                 Tabs::make('Locales')
                     ->tabs(collect($locales)->map(function ($locale) {
-                        $localeKey = is_array($locale) ? ($locale['value'] ?? 'ru') : $locale;
-                        return Tabs\Tab::make(strtoupper($localeKey))
+                        $key = is_array($locale) ? ($locale['value'] ?? 'ru') : $locale;
+
+                        return Tabs\Tab::make(strtoupper($key))
                             ->schema([
                                 Group::make()
-                                    ->statePath('content.' . $localeKey)
-                                    ->reactive()
-                                    ->schema(function (Get $get) {
-                                        $type = $get('../../type');
-                                        $fields = [];
-                                        switch ($type) {
-                                            case 'hero':
-                                                $fields = [
-                                                    TextInput::make('title')->label('Title'),
-                                                    Textarea::make('subtitle')->label('Subtitle'),
-                                                    Textarea::make('text')->label('Text under title'),
-                                                    TextInput::make('cta_text')->label('CTA Text'),
-                                                    TextInput::make('cta_href')->label('CTA Link'),
-                                                ];
-                                                break;
-                                            case 'assortment':
-                                            case 'supplies':
-                                            case 'why_us':
-                                            case 'stations':
-                                            case 'advantages':
-                                                $fields = [
-                                                    TextInput::make('title')->label('Title'),
-                                                    Textarea::make('description')->label('Description'),
-                                                    Textarea::make('text')->label('Text under title'),
-                                                    Repeater::make('items')->label('Items')->schema([
-                                                        TextInput::make('img')->label('Image file')->helperText('Optional'),
-                                                        TextInput::make('title')->label('Item title')->helperText('Optional'),
-                                                        Textarea::make('text')->label('Item text')->helperText('Optional'),
-                                                    ])->collapsed(),
-                                                    TextInput::make('cta_text')->label('CTA Text'),
-                                                    TextInput::make('cta_href')->label('CTA Link'),
-                                                ];
-                                                break;
-                                            case 'model':
-                                                $fields = [
-                                                    TextInput::make('title_1')->label('Title 1'),
-                                                    Textarea::make('text_1')->label('Text under title 1'),
-                                                    Repeater::make('images_1')->label('Images 1')->schema([
-                                                        TextInput::make('value')->label('Image file'),
-                                                    ])->collapsed(),
-                                                    TextInput::make('title_2')->label('Title 2'),
-                                                    Textarea::make('text_2')->label('Text under title 2'),
-                                                    Repeater::make('images_2')->label('Images 2')->schema([
-                                                        TextInput::make('value')->label('Image file'),
-                                                    ])->collapsed(),
-                                                ];
-                                                break;
-                                            case 'office':
-                                                $fields = [
-                                                    TextInput::make('title')->label('Title'),
-                                                    Textarea::make('text')->label('Text under title'),
-                                                    Repeater::make('images')->label('Images')->schema([
-                                                        TextInput::make('value')->label('Image file'),
-                                                    ])->collapsed(),
-                                                ];
-                                                break;
-                                            case 'certificate':
-                                                $fields = [
-                                                    TextInput::make('title')->label('Title'),
-                                                    Textarea::make('text')->label('Text under title'),
-                                                    Repeater::make('images')->label('Certificates')->schema([
-                                                        TextInput::make('value')->label('Image file'),
-                                                    ])->collapsed(),
-                                                ];
-                                                break;
-                                            case 'partners':
-                                                $fields = [
-                                                    TextInput::make('title')->label('Title'),
-                                                    Textarea::make('text')->label('Text under title'),
-                                                    Repeater::make('logos')->label('Logos')->schema([
-                                                        TextInput::make('img')->label('Logo image')->helperText('Optional'),
-                                                    ])->collapsed(),
-                                                ];
-                                                break;
-                                            default:
-                                                $fields = [
-                                                    TextInput::make('title')->label('Title'),
-                                                    Textarea::make('description')->label('Description'),
-                                                    Textarea::make('text')->label('Text under title'),
-                                                ];
-                                        }
-                                        return $fields;
-                                    }),
+                                    ->statePath("content.$key")
+                                    ->columns(1)
+                                    ->schema([
+                                        Forms\Components\Fieldset::make('Dynamic fields')
+                                            ->schema(function (Get $get) {
+                                                $type = $get('../../type');
+
+                                                switch ($type) {
+                                                    case 'hero':
+                                                        return [
+                                                            TextInput::make('title')->label('Title'),
+                                                            Textarea::make('subtitle')->label('Subtitle'),
+                                                            Textarea::make('text')->label('Text under title'),
+                                                            TextInput::make('cta_text')->label('CTA Text'),
+                                                            TextInput::make('cta_href')->label('CTA Link'),
+                                                        ];
+
+                                                    case 'assortment':
+                                                    case 'supplies':
+                                                    case 'why_us':
+                                                    case 'stations':
+                                                    case 'advantages':
+                                                        return [
+                                                            TextInput::make('title')->label('Title'),
+                                                            Textarea::make('description')->label('Description'),
+                                                            Textarea::make('text')->label('Text under title'),
+                                                            Repeater::make('items')
+                                                                ->label('Items')
+                                                                ->schema([
+                                                                    TextInput::make('img')->label('Image file')->helperText('Optional'),
+                                                                    TextInput::make('title')->label('Item title')->helperText('Optional'),
+                                                                    Textarea::make('text')->label('Item text')->helperText('Optional'),
+                                                                ])
+                                                                ->collapsed(),
+                                                            TextInput::make('cta_text')->label('CTA Text'),
+                                                            TextInput::make('cta_href')->label('CTA Link'),
+                                                        ];
+
+                                                    case 'model':
+                                                        return [
+                                                            TextInput::make('title_1')->label('Title 1'),
+                                                            Textarea::make('text_1')->label('Text under title 1'),
+                                                            Repeater::make('images_1')
+                                                                ->label('Images 1')
+                                                                ->schema([
+                                                                    TextInput::make('value')->label('Image file'),
+                                                                ])
+                                                                ->collapsed(),
+
+                                                            TextInput::make('title_2')->label('Title 2'),
+                                                            Textarea::make('text_2')->label('Text under title 2'),
+                                                            Repeater::make('images_2')
+                                                                ->label('Images 2')
+                                                                ->schema([
+                                                                    TextInput::make('value')->label('Image file'),
+                                                                ])
+                                                                ->collapsed(),
+                                                        ];
+
+                                                    case 'office':
+                                                        return [
+                                                            TextInput::make('title')->label('Title'),
+                                                            Textarea::make('text')->label('Text under title'),
+                                                            Repeater::make('images')
+                                                                ->label('Images')
+                                                                ->schema([
+                                                                    TextInput::make('value')->label('Image file'),
+                                                                ])
+                                                                ->collapsed(),
+                                                        ];
+
+                                                    case 'certificate':
+                                                        return [
+                                                            TextInput::make('title')->label('Title'),
+                                                            Textarea::make('text')->label('Text under title'),
+                                                            Repeater::make('images')
+                                                                ->label('Certificates')
+                                                                ->schema([
+                                                                    TextInput::make('value')->label('Image file'),
+                                                                ])
+                                                                ->collapsed(),
+                                                        ];
+
+                                                    case 'partners':
+                                                        return [
+                                                            TextInput::make('title')->label('Title'),
+                                                            Textarea::make('text')->label('Text under title'),
+                                                            Repeater::make('logos')
+                                                                ->label('Logos')
+                                                                ->schema([
+                                                                    TextInput::make('img')->label('Logo image')->helperText('Optional'),
+                                                                ])
+                                                                ->collapsed(),
+                                                        ];
+
+                                                    default:
+                                                        return [
+                                                            TextInput::make('title')->label('Title'),
+                                                            Textarea::make('description')->label('Description'),
+                                                            Textarea::make('text')->label('Text under title'),
+                                                        ];
+                                                }
+                                            }),
+                                    ]),
                             ]);
                     })->toArray()),
             ]);
     }
+
 
     public static function table(Table $table): Table
     {
