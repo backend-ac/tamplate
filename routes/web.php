@@ -32,3 +32,8 @@ Route::get('/seed', function () {
     Artisan::call('db:seed');
     return redirect()->back();
 });
+
+Route::get('/link', function () {
+    Artisan::call('storage:link');
+    return redirect()->back();
+});
