@@ -17,7 +17,6 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Table;
 use Filament\Tables;
-use Illuminate\Support\Facades\Log;
 
 class BlockResource extends Resource
 {
@@ -94,10 +93,10 @@ class BlockResource extends Resource
                                 Group::make()
                                     ->statePath("content.$key")
                                     ->columns(2)
-                                    ->schema(function (Get $get) {
-                                        $type = $get('../../type');
-                                        Log::info('Block type: ' . $type);
-                                        Log::info('Get type: ' . print_r($get, true));
+                                    ->schema(function (Get $get) use ($key) {
+                                        // Use absolute path to get type from root of form
+                                        $type = $get('type');
+                                        
                                         if (!$type) {
                                             return [];
                                         }
