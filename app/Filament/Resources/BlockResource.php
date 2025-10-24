@@ -50,6 +50,7 @@ class BlockResource extends Resource
                         'certificate' => 'Certificate',
                         'partners' => 'Partners',
                     ])
+                    ->live()
                     ->required(),
 
                 Forms\Components\Toggle::make('enabled')->default(true),
@@ -76,9 +77,17 @@ class BlockResource extends Resource
                                     ->statePath("content.$key")
                                     ->columns(1)
                                     ->schema([
-                                        Forms\Components\Fieldset::make('Dynamic fields')
+                                        Forms\Components\Fieldset::make('Content Fields')
                                             ->schema(function (Get $get) {
                                                 $type = $get('../../type');
+                                                
+                                                if (!$type) {
+                                                    return [
+                                                        Forms\Components\Placeholder::make('select_type')
+                                                            ->label('')
+                                                            ->content('Please select a block type first'),
+                                                    ];
+                                                }
 
                                                 switch ($type) {
                                                     case 'hero':
