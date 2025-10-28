@@ -37,6 +37,7 @@
     @include('layouts.footer')
 
 </div>
+@if(($data['cta_text'] ?? null) && ($data['cta_href'] == '' || $data['cta_href'] == 'javascript:;'))
 <div class="modal">
     <div class="container">
         <div class="modal-wrapper">
@@ -57,6 +58,7 @@
         </div>
     </div>
 </div>
+@endif
 <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('js/jquery.maskedinput.min.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
