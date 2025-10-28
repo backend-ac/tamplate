@@ -34,11 +34,20 @@ class HomeController extends Controller
 
         $blocks = $page->blocks()->where('enabled', true)->orderBy('sort')->get();
 
+        $hasModal = $blocks->contains(function ($block) use ($locale, $defaultLocale) {
+            $content = $block->content[$locale] ?? $block->content[$defaultLocale] ?? [];
+            $ctaText = $content['cta_text'] ?? null;
+            $ctaHref = $content['cta_href'] ?? null;
+            
+            return !empty($ctaText) && (empty($ctaHref) || $ctaHref === 'javascript:;');
+        });
+
         return view('home_dynamic', [
             'page' => $page,
             'blocks' => $blocks,
             'locale' => $locale,
             'isMultilingual' => $isMultilingual,
+            'hasModal' => $hasModal,
         ]);
     }
 }
