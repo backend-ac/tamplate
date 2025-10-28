@@ -12,6 +12,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Get;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -104,6 +105,15 @@ class BlockResource extends Resource
                                         switch ($type) {
                                             case 'hero':
                                                 return [
+                                                    FileUpload::make('image')
+                                                        ->label('Фоновое изображение')
+                                                        ->image()
+                                                        ->directory('blocks/hero')
+                                                        ->visibility('public')
+                                                        ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg'])
+                                                        ->maxSize(5120)
+                                                        ->helperText('Загрузите фоновое изображение (PNG, JPG, WEBP, макс 5МБ)')
+                                                        ->columnSpanFull(),
                                                     TextInput::make('title')->label('Заголовок')->columnSpanFull(),
                                                     Textarea::make('subtitle')->label('Подзаголовок')->columnSpanFull(),
                                                     Textarea::make('text')->label('Текст под заголовком')->columnSpanFull(),

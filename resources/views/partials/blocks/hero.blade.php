@@ -3,7 +3,7 @@
         <div class="swiper-container">
             <div class="swiper-wrapper">
                 <div class="swiper-slide hero__slide">
-                    <img class="bg-img" src="{{ asset('img/hero-img.png') }}" alt="">
+                    <img class="bg-img" src="{{ isset($data['image']) && $data['image'] ? asset('storage/' . $data['image']) : asset('img/hero-img.png') }}" alt="{{ $data['title'] ?? '' }}">
                     <div class="container">
                         <div class="hero__content">
                             <h1 class="title">{{ $data['title'] ?? '' }}</h1>
