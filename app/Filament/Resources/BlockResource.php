@@ -133,7 +133,14 @@ class BlockResource extends Resource
                                                     Repeater::make('items')
                                                         ->label('Элементы')
                                                         ->schema([
-                                                            TextInput::make('img')->label('Файл изображения'),
+                                                            FileUpload::make('img')
+                                                                ->label('Изображение')
+                                                                ->image()
+                                                                ->directory('blocks/items')
+                                                                ->visibility('public')
+                                                                ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg', 'image/svg+xml'])
+                                                                ->maxSize(3072)
+                                                                ->helperText('PNG, JPG, WEBP, SVG (макс 3МБ)'),
                                                             TextInput::make('title')->label('Заголовок элемента'),
                                                             Textarea::make('text')->label('Текст элемента'),
                                                         ])
@@ -150,7 +157,13 @@ class BlockResource extends Resource
                                                     Repeater::make('images_1')
                                                         ->label('Изображения 1')
                                                         ->schema([
-                                                            TextInput::make('value')->label('Файл изображения'),
+                                                            FileUpload::make('value')
+                                                                ->label('Изображение')
+                                                                ->image()
+                                                                ->directory('blocks/model')
+                                                                ->visibility('public')
+                                                                ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg'])
+                                                                ->maxSize(3072),
                                                         ])
                                                         ->collapsed()
                                                         ->columnSpanFull(),
@@ -159,7 +172,13 @@ class BlockResource extends Resource
                                                     Repeater::make('images_2')
                                                         ->label('Изображения 2')
                                                         ->schema([
-                                                            TextInput::make('value')->label('Файл изображения'),
+                                                            FileUpload::make('value')
+                                                                ->label('Изображение')
+                                                                ->image()
+                                                                ->directory('blocks/model')
+                                                                ->visibility('public')
+                                                                ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg'])
+                                                                ->maxSize(3072),
                                                         ])
                                                         ->collapsed()
                                                         ->columnSpanFull(),
@@ -172,7 +191,13 @@ class BlockResource extends Resource
                                                     Repeater::make('images')
                                                         ->label('Изображения')
                                                         ->schema([
-                                                            TextInput::make('value')->label('Файл изображения'),
+                                                            FileUpload::make('value')
+                                                                ->label('Изображение')
+                                                                ->image()
+                                                                ->directory('blocks/office')
+                                                                ->visibility('public')
+                                                                ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg'])
+                                                                ->maxSize(3072),
                                                         ])
                                                         ->collapsed()
                                                         ->columnSpanFull(),
@@ -185,7 +210,13 @@ class BlockResource extends Resource
                                                     Repeater::make('images')
                                                         ->label('Сертификаты')
                                                         ->schema([
-                                                            TextInput::make('value')->label('Файл изображения'),
+                                                            FileUpload::make('value')
+                                                                ->label('Изображение сертификата')
+                                                                ->image()
+                                                                ->directory('blocks/certificates')
+                                                                ->visibility('public')
+                                                                ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg', 'application/pdf'])
+                                                                ->maxSize(5120),
                                                         ])
                                                         ->collapsed()
                                                         ->columnSpanFull(),
@@ -198,7 +229,13 @@ class BlockResource extends Resource
                                                     Repeater::make('logos')
                                                         ->label('Логотипы')
                                                         ->schema([
-                                                            TextInput::make('img')->label('Изображение логотипа'),
+                                                            FileUpload::make('img')
+                                                                ->label('Логотип')
+                                                                ->image()
+                                                                ->directory('blocks/partners')
+                                                                ->visibility('public')
+                                                                ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg', 'image/svg+xml'])
+                                                                ->maxSize(2048),
                                                         ])
                                                         ->collapsed()
                                                         ->columnSpanFull(),

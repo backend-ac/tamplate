@@ -15,7 +15,7 @@
                     @php($title = is_array($item) ? ($item['title'] ?? '') : (string)$item)
                     @php($text = is_array($item) ? ($item['text'] ?? '') : '')
                     <div class="stations__card why-us__card">
-                        <img src="{{ asset('img/' . $img) }}" alt="">
+                        <img src="{{ str_starts_with($img, 'blocks/') ? asset('storage/' . $img) : asset('img/' . $img) }}" alt="{{ $title }}">
                         @if($title !== '')<h3>{{ $title }}</h3>@endif
                         @if($text !== '')<p>{{ $text }}</p>@endif
                     </div>
