@@ -9,7 +9,9 @@
                             <h1 class="title">{{ $data['title'] ?? '' }}</h1>
                             <p>{{ $data['subtitle'] ?? '' }}</p>
                             @if(($data['text'] ?? null))<p>{{ $data['text'] }}</p>@endif
-                            <a class="open-modal btn-hov" href="{{ $data['cta_href'] ?? 'javascript:;' }}">{{ $data['cta_text'] ?? '' }}</a>
+                            @if(($data['cta_text'] ?? null))
+                                <a class="open-modal btn-hov" href="{{ $data['cta_href'] ?? 'javascript:;' }}">{{ $data['cta_text'] ?? '' }}</a>
+                            @endif
                         </div>
                     </div>
                 </div>
