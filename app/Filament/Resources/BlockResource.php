@@ -22,7 +22,7 @@ class BlockResource extends Resource
 {
     protected static ?string $model = Block::class;
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationGroup = 'Контент';
+    protected static ?string $navigationLabel = 'Контент';
 
     public static function form(Form $form): Form
     {
