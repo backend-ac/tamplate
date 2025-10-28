@@ -21,70 +21,70 @@ class SiteSettingResource extends Resource
 {
     protected static ?string $model = SiteSetting::class;
     protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
-    protected static ?string $navigationGroup = 'Settings';
-    protected static ?string $label = 'Site Settings';
+    protected static ?string $navigationGroup = 'Настройки';
+    protected static ?string $label = 'Настройки сайта';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Toggle::make('is_multilingual')->label('Multilingual')->default(true),
-                TextInput::make('default_locale')->label('Default locale')->default('ru')->required(),
+                Forms\Components\Toggle::make('is_multilingual')->label('Многоязычность')->default(true),
+                TextInput::make('default_locale')->label('Язык по умолчанию')->default('ru')->required(),
                 FileUpload::make('logo')
-                    ->label('Logo')
+                    ->label('Логотип')
                     ->image()
                     ->directory('logos')
                     ->visibility('public')
                     ->acceptedFileTypes(['image/svg+xml', 'image/png', 'image/jpeg', 'image/webp'])
                     ->maxSize(2048)
-                    ->helperText('Upload site logo (SVG, PNG, JPG, WEBP, max 2MB)'),
+                    ->helperText('Загрузите логотип сайта (SVG, PNG, JPG, WEBP, макс 2МБ)'),
                 Repeater::make('locales')
-                    ->label('Available locales')
+                    ->label('Доступные языки')
                     ->schema([
-                        TextInput::make('value')->label('Locale code (e.g. ru, en, kk)')->required(),
+                        TextInput::make('value')->label('Код языка (напр. ru, en, kk)')->required(),
                     ])
                     ->collapsed()
-                    ->itemLabel('Locale')
+                    ->itemLabel('Язык')
                     ->columns(1),
                 
-                Section::make('Metric Tags')
-                    ->description('Add analytics and tracking scripts')
+                Section::make('Метрики')
+                    ->description('Добавьте скрипты аналитики и отслеживания')
                     ->schema([
                         Repeater::make('head_metrics')
-                            ->label('Head Metrics (Google Analytics, Meta Pixel, etc.)')
+                            ->label('Метрики в <head> (Google Analytics, Meta Pixel и т.д.)')
                             ->schema([
                                 TextInput::make('name')
-                                    ->label('Name')
-                                    ->placeholder('e.g., Google Analytics, Yandex Metrika')
+                                    ->label('Название')
+                                    ->placeholder('напр., Google Analytics, Яндекс Метрика')
                                     ->required(),
                                 Textarea::make('code')
-                                    ->label('Code')
-                                    ->placeholder('Paste your tracking code here')
+                                    ->label('Код')
+                                    ->placeholder('Вставьте код отслеживания сюда')
                                     ->rows(5)
                                     ->required()
-                                    ->helperText('This code will be inserted in the <head> section'),
+                                    ->helperText('Этот код будет вставлен в секцию <head>'),
                             ])
                             ->collapsed()
-                            ->itemLabel(fn (array $state): ?string => $state['name'] ?? 'Metric')
+                            ->itemLabel(fn (array $state): ?string => $state['name'] ?? 'Метрика')
                             ->columns(1)
                             ->defaultItems(0),
                         
                         Repeater::make('body_metrics')
-                            ->label('Body Metrics (GTM, etc.)')
+                            ->label('Метрики в <body> (GTM и т.д.)')
                             ->schema([
                                 TextInput::make('name')
-                                    ->label('Name')
-                                    ->placeholder('e.g., Google Tag Manager')
+                                    ->label('Название')
+                                    ->placeholder('напр., Google Tag Manager')
                                     ->required(),
                                 Textarea::make('code')
-                                    ->label('Code')
-                                    ->placeholder('Paste your tracking code here')
+                                    ->label('Код')
+                                    ->placeholder('Вставьте код отслеживания сюда')
                                     ->rows(5)
                                     ->required()
-                                    ->helperText('This code will be inserted at the beginning of <body>'),
+                                    ->helperText('Этот код будет вставлен в начало <body>'),
                             ])
                             ->collapsed()
-                            ->itemLabel(fn (array $state): ?string => $state['name'] ?? 'Metric')
+                            ->itemLabel(fn (array $state): ?string => $state['name'] ?? 'Метрика')
                             ->columns(1)
                             ->defaultItems(0),
                     ])
@@ -95,9 +95,9 @@ class SiteSettingResource extends Resource
     public static function table(Table $table): Table
     {
         return $table->columns([
-            Tables\Columns\ImageColumn::make('logo')->label('Logo'),
-            Tables\Columns\IconColumn::make('is_multilingual')->boolean(),
-            Tables\Columns\TextColumn::make('default_locale'),
+            Tables\Columns\ImageColumn::make('logo')->label('Логотип'),
+            Tables\Columns\IconColumn::make('is_multilingual')->label('Многоязычность')->boolean(),
+            Tables\Columns\TextColumn::make('default_locale')->label('Язык по умолчанию'),
         ])->actions([
             Tables\Actions\EditAction::make(),
         ]);

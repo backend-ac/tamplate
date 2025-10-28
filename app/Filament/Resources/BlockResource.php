@@ -22,7 +22,7 @@ class BlockResource extends Resource
 {
     protected static ?string $model = Block::class;
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationGroup = 'Content';
+    protected static ?string $navigationGroup = 'Контент';
 
     public static function form(Form $form): Form
     {
@@ -48,24 +48,24 @@ class BlockResource extends Resource
         return $form
             ->schema([
                 Select::make('page_id')
-                    ->label('Page')
+                    ->label('Страница')
                     ->options(Page::query()->pluck('slug', 'id'))
                     ->searchable()
                     ->required(),
 
                 Select::make('type')
-                    ->label('Type')
+                    ->label('Тип')
                     ->options([
-                        'hero' => 'Hero',
-                        'assortment' => 'Assortment',
-                        'supplies' => 'Supplies',
-                        'why_us' => 'Why Us',
-                        'stations' => 'Stations',
-                        'advantages' => 'Advantages',
-                        'model' => 'Model',
-                        'office' => 'Office',
-                        'certificate' => 'Certificate',
-                        'partners' => 'Partners',
+                        'hero' => 'Главный баннер',
+                        'assortment' => 'Ассортимент',
+                        'supplies' => 'Поставки',
+                        'why_us' => 'Почему мы',
+                        'stations' => 'Станции',
+                        'advantages' => 'Преимущества',
+                        'model' => 'Модель',
+                        'office' => 'Офис',
+                        'certificate' => 'Сертификаты',
+                        'partners' => 'Партнеры',
                     ])
                     ->live()
                     ->required(),
@@ -73,18 +73,18 @@ class BlockResource extends Resource
                 Forms\Components\Toggle::make('enabled')->default(true),
                 TextInput::make('sort')->numeric()->default(0)->required(),
 
-                Tabs::make('Custom Name')
+                Tabs::make('Пользовательское название')
                     ->tabs(collect($locales)->map(function ($locale) {
                         $key = is_array($locale) ? ($locale['value'] ?? 'ru') : $locale;
-                        return Tabs\Tab::make('Name ' . strtoupper($key))
+                        return Tabs\Tab::make('Название ' . strtoupper($key))
                             ->schema([
                                 TextInput::make("custom_name.$key")
-                                    ->label('Custom Block Name')
+                                    ->label('Пользовательское название блока')
                                     ->helperText('Оставьте пустым для использования названия по умолчанию'),
                             ]);
                     })->toArray()),
 
-                Tabs::make('Locales')
+                Tabs::make('Локализации')
                     ->tabs(collect($locales)->map(function ($locale) {
                         $key = is_array($locale) ? ($locale['value'] ?? 'ru') : $locale;
 
@@ -104,11 +104,11 @@ class BlockResource extends Resource
                                         switch ($type) {
                                             case 'hero':
                                                 return [
-                                                    TextInput::make('title')->label('Title')->columnSpanFull(),
-                                                    Textarea::make('subtitle')->label('Subtitle')->columnSpanFull(),
-                                                    Textarea::make('text')->label('Text under title')->columnSpanFull(),
-                                                    TextInput::make('cta_text')->label('CTA Text'),
-                                                    TextInput::make('cta_href')->label('CTA Link'),
+                                                    TextInput::make('title')->label('Заголовок')->columnSpanFull(),
+                                                    Textarea::make('subtitle')->label('Подзаголовок')->columnSpanFull(),
+                                                    Textarea::make('text')->label('Текст под заголовком')->columnSpanFull(),
+                                                    TextInput::make('cta_text')->label('Текст кнопки'),
+                                                    TextInput::make('cta_href')->label('Ссылка кнопки'),
                                                 ];
 
                                             case 'assortment':
@@ -117,39 +117,39 @@ class BlockResource extends Resource
                                             case 'stations':
                                             case 'advantages':
                                                 return [
-                                                    TextInput::make('title')->label('Title')->columnSpanFull(),
-                                                    Textarea::make('description')->label('Description')->columnSpanFull(),
-                                                    Textarea::make('text')->label('Text under title')->columnSpanFull(),
+                                                    TextInput::make('title')->label('Заголовок')->columnSpanFull(),
+                                                    Textarea::make('description')->label('Описание')->columnSpanFull(),
+                                                    Textarea::make('text')->label('Текст под заголовком')->columnSpanFull(),
                                                     Repeater::make('items')
-                                                        ->label('Items')
+                                                        ->label('Элементы')
                                                         ->schema([
-                                                            TextInput::make('img')->label('Image file'),
-                                                            TextInput::make('title')->label('Item title'),
-                                                            Textarea::make('text')->label('Item text'),
+                                                            TextInput::make('img')->label('Файл изображения'),
+                                                            TextInput::make('title')->label('Заголовок элемента'),
+                                                            Textarea::make('text')->label('Текст элемента'),
                                                         ])
                                                         ->collapsed()
                                                         ->columnSpanFull(),
-                                                    TextInput::make('cta_text')->label('CTA Text'),
-                                                    TextInput::make('cta_href')->label('CTA Link'),
+                                                    TextInput::make('cta_text')->label('Текст кнопки'),
+                                                    TextInput::make('cta_href')->label('Ссылка кнопки'),
                                                 ];
 
                                             case 'model':
                                                 return [
-                                                    TextInput::make('title_1')->label('Title 1')->columnSpanFull(),
-                                                    Textarea::make('text_1')->label('Text 1')->columnSpanFull(),
+                                                    TextInput::make('title_1')->label('Заголовок 1')->columnSpanFull(),
+                                                    Textarea::make('text_1')->label('Текст 1')->columnSpanFull(),
                                                     Repeater::make('images_1')
-                                                        ->label('Images 1')
+                                                        ->label('Изображения 1')
                                                         ->schema([
-                                                            TextInput::make('value')->label('Image file'),
+                                                            TextInput::make('value')->label('Файл изображения'),
                                                         ])
                                                         ->collapsed()
                                                         ->columnSpanFull(),
-                                                    TextInput::make('title_2')->label('Title 2')->columnSpanFull(),
-                                                    Textarea::make('text_2')->label('Text 2')->columnSpanFull(),
+                                                    TextInput::make('title_2')->label('Заголовок 2')->columnSpanFull(),
+                                                    Textarea::make('text_2')->label('Текст 2')->columnSpanFull(),
                                                     Repeater::make('images_2')
-                                                        ->label('Images 2')
+                                                        ->label('Изображения 2')
                                                         ->schema([
-                                                            TextInput::make('value')->label('Image file'),
+                                                            TextInput::make('value')->label('Файл изображения'),
                                                         ])
                                                         ->collapsed()
                                                         ->columnSpanFull(),
@@ -157,12 +157,12 @@ class BlockResource extends Resource
 
                                             case 'office':
                                                 return [
-                                                    TextInput::make('title')->label('Title')->columnSpanFull(),
-                                                    Textarea::make('text')->label('Text')->columnSpanFull(),
+                                                    TextInput::make('title')->label('Заголовок')->columnSpanFull(),
+                                                    Textarea::make('text')->label('Текст')->columnSpanFull(),
                                                     Repeater::make('images')
-                                                        ->label('Images')
+                                                        ->label('Изображения')
                                                         ->schema([
-                                                            TextInput::make('value')->label('Image file'),
+                                                            TextInput::make('value')->label('Файл изображения'),
                                                         ])
                                                         ->collapsed()
                                                         ->columnSpanFull(),
@@ -170,12 +170,12 @@ class BlockResource extends Resource
 
                                             case 'certificate':
                                                 return [
-                                                    TextInput::make('title')->label('Title')->columnSpanFull(),
-                                                    Textarea::make('text')->label('Text')->columnSpanFull(),
+                                                    TextInput::make('title')->label('Заголовок')->columnSpanFull(),
+                                                    Textarea::make('text')->label('Текст')->columnSpanFull(),
                                                     Repeater::make('images')
-                                                        ->label('Certificates')
+                                                        ->label('Сертификаты')
                                                         ->schema([
-                                                            TextInput::make('value')->label('Image file'),
+                                                            TextInput::make('value')->label('Файл изображения'),
                                                         ])
                                                         ->collapsed()
                                                         ->columnSpanFull(),
@@ -183,12 +183,12 @@ class BlockResource extends Resource
 
                                             case 'partners':
                                                 return [
-                                                    TextInput::make('title')->label('Title')->columnSpanFull(),
-                                                    Textarea::make('text')->label('Text')->columnSpanFull(),
+                                                    TextInput::make('title')->label('Заголовок')->columnSpanFull(),
+                                                    Textarea::make('text')->label('Текст')->columnSpanFull(),
                                                     Repeater::make('logos')
-                                                        ->label('Logos')
+                                                        ->label('Логотипы')
                                                         ->schema([
-                                                            TextInput::make('img')->label('Logo image'),
+                                                            TextInput::make('img')->label('Изображение логотипа'),
                                                         ])
                                                         ->collapsed()
                                                         ->columnSpanFull(),
@@ -196,9 +196,9 @@ class BlockResource extends Resource
 
                                             default:
                                                 return [
-                                                    TextInput::make('title')->label('Title')->columnSpanFull(),
-                                                    Textarea::make('description')->label('Description')->columnSpanFull(),
-                                                    Textarea::make('text')->label('Text')->columnSpanFull(),
+                                                    TextInput::make('title')->label('Заголовок')->columnSpanFull(),
+                                                    Textarea::make('description')->label('Описание')->columnSpanFull(),
+                                                    Textarea::make('text')->label('Текст')->columnSpanFull(),
                                                 ];
                                         }
                                     }),
@@ -213,10 +213,10 @@ class BlockResource extends Resource
         return $table
             ->reorderable('sort')
             ->columns([
-                Tables\Columns\TextColumn::make('page.slug')->label('Page')->sortable(),
-                Tables\Columns\TextColumn::make('type')->sortable(),
-                Tables\Columns\IconColumn::make('enabled')->boolean(),
-                Tables\Columns\TextColumn::make('sort')->sortable(),
+                Tables\Columns\TextColumn::make('page.slug')->label('Страница')->sortable(),
+                Tables\Columns\TextColumn::make('type')->label('Тип')->sortable(),
+                Tables\Columns\IconColumn::make('enabled')->label('Включено')->boolean(),
+                Tables\Columns\TextColumn::make('sort')->label('Сортировка')->sortable(),
             ])
             ->filters([])
             ->actions([
