@@ -37,7 +37,7 @@
     @include('layouts.footer')
 
 </div>
-@if(($data['cta_text'] ?? null) && ($data['cta_href'] == '' || $data['cta_href'] == 'javascript:;'))
+@if($data['cta_text'] && ($data['cta_href'] == '' || $data['cta_href'] == 'javascript:;' || $data['cta_href'] == null))
 <div class="modal">
     <div class="container">
         <div class="modal-wrapper">
