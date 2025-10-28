@@ -100,6 +100,10 @@ class SiteSettingResource extends Resource
             Tables\Columns\TextColumn::make('default_locale')->label('Язык по умолчанию'),
         ])->actions([
             Tables\Actions\EditAction::make(),
+            Tables\Actions\DeleteAction::make(),
+        ])
+        ->bulkActions([
+            Tables\Actions\DeleteBulkAction::make(),
         ]);
     }
 
