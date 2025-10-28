@@ -50,9 +50,21 @@
                 </svg>
             </button>
             <h2>Оставьте заявку и мы Вам перезвоним!</h2>
-            <form action="">
-                <input type="text" name="name" placeholder="Имя" required>
-                <input type="tel" name="phone" id="" placeholder="Номер телефона" required>
+            @if(session('success'))
+                <div class="alert alert-success" style="color: green; margin-bottom: 15px; padding: 10px; background: #d4edda; border-radius: 5px;">
+                    {{ session('success') }}
+                </div>
+            @endif
+            <form action="{{ route('leads.store') }}" method="POST">
+                @csrf
+                <input type="text" name="name" placeholder="Имя" required value="{{ old('name') }}">
+                @error('name')
+                    <span style="color: red; font-size: 12px;">{{ $message }}</span>
+                @enderror
+                <input type="tel" name="phone" placeholder="Номер телефона" required value="{{ old('phone') }}">
+                @error('phone')
+                    <span style="color: red; font-size: 12px;">{{ $message }}</span>
+                @enderror
                 <button type="submit">Отправить</button>
             </form>
         </div>

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LeadController;
 use Illuminate\Support\Facades\Artisan;
 
 /*
@@ -21,6 +22,8 @@ Route::middleware('setLocaleFromSettings')->group(function () {
     Route::get('/{locale}', [HomeController::class, 'index'])
         ->where('locale', '^[a-zA-Z]{2}$')
         ->name('home.localized');
+    
+    Route::post('/leads', [LeadController::class, 'store'])->name('leads.store');
 });
 
 Route::get('/migrate', function () {
