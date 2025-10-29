@@ -74,7 +74,7 @@
 <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('js/jquery.maskedinput.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js?_v=20250416184948"></script>
-<script src="{{ asset('js/index.js') }}"></script>
+<script src="{{ asset('js/index.js?v=1.1') }}"></script>
 </body>
 
 </html>
