@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('site_settings', function (Blueprint $table) {
-            $table->json('footer_contacts')->nullable()->after('footer_logo');
+            $table->json('footer_contacts')->nullable()->after('body_metrics');
             $table->string('footer_copyright')->nullable()->after('footer_contacts');
             $table->string('footer_developer_text')->nullable()->after('footer_copyright');
             $table->string('footer_developer_link')->nullable()->after('footer_developer_text');
