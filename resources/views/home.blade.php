@@ -3,8 +3,7 @@
     <main>
         <section class="hero">
             <div class="swiper hero__slider">
-                <div class="swiper-container">
-                    <div class="swiper-wrapper">
+              <div class="swiper-wrapper">
                         <div class="swiper-slide hero__slide">
                             <img class="bg-img" src="./img/hero-img.png" alt="">
                             <div class="container">
@@ -17,8 +16,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="container">
+              </div>
+              <div class="container">
                         <div class="hero__nav-btn">
                             <div class="swiper-button-prev">
                                 <svg width="52" height="53" viewBox="0 0 52 53" fill="none"
@@ -51,8 +50,7 @@
 
                             </div>
                         </div>
-                    </div>
-                </div>
+              </div>
             </div>
         </section>
         <section class="assortment container indent">
