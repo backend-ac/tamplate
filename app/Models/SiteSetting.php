@@ -14,6 +14,8 @@ class SiteSetting extends Model
         'default_locale',
         'locales',
         'logo',
+        'footer_contacts',
+        'footer_copyright',
         'head_metrics',
         'body_metrics',
     ];
@@ -21,6 +23,7 @@ class SiteSetting extends Model
     protected $casts = [
         'is_multilingual' => 'boolean',
         'locales' => 'array',
+        'footer_contacts' => 'array',
         'head_metrics' => 'array',
         'body_metrics' => 'array',
     ];

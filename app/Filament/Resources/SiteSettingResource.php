@@ -29,14 +29,59 @@ class SiteSettingResource extends Resource
             ->schema([
                 Forms\Components\Toggle::make('is_multilingual')->label('Многоязычность')->default(true),
                 TextInput::make('default_locale')->label('Язык по умолчанию')->default('ru')->required(),
-                FileUpload::make('logo')
-                    ->label('Логотип')
-                    ->image()
-                    ->directory('logos')
-                    ->visibility('public')
-                    ->acceptedFileTypes(['image/svg+xml', 'image/png', 'image/jpeg', 'image/webp'])
-                    ->maxSize(2048)
-                    ->helperText('Загрузите логотип сайта (SVG, PNG, JPG, WEBP, макс 2МБ)'),
+                Section::make('Логотипы')
+                    ->schema([
+                        FileUpload::make('logo')
+                            ->label('Логотип Header')
+                            ->image()
+                            ->directory('logos')
+                            ->visibility('public')
+                            ->acceptedFileTypes(['image/svg+xml', 'image/png', 'image/jpeg', 'image/webp'])
+                            ->maxSize(2048)
+                            ->helperText('Загрузите логотип для шапки сайта (SVG, PNG, JPG, WEBP, макс 2МБ)'),
+                    ])
+                    ->columns(2)
+                    ->collapsible(),
+                
+                Section::make('Footer')
+                    ->schema([
+                        Repeater::make('footer_contacts')
+                            ->label('Контакты в Footer')
+                            ->schema([
+                                Textarea::make('address')
+                                    ->label('Адрес')
+                                    ->rows(2)
+                                    ->columnSpanFull(),
+                                Repeater::make('phones')
+                                    ->label('Телефоны')
+                                    ->schema([
+                                        TextInput::make('number')
+                                            ->label('Номер телефона')
+                                            ->tel()
+                                            ->placeholder('+7 777 777 77 77'),
+                                        TextInput::make('label')
+                                            ->label('Подпись')
+                                            ->placeholder('г. Астана'),
+                                    ])
+                                    ->columns(2)
+                                    ->defaultItems(0)
+                                    ->columnSpanFull(),
+                                TextInput::make('email')
+                                    ->label('Email')
+                                    ->email()
+                                    ->columnSpanFull(),
+                            ])
+                            ->collapsed()
+                            ->itemLabel(fn (array $state): ?string => $state['address'] ?? 'Контакт')
+                            ->defaultItems(0)
+                            ->columnSpanFull(),
+                        TextInput::make('footer_copyright')
+                            ->label('Текст копирайта')
+                            ->default('KAZSNAB-GROUP 2025, © Все права защищены')
+                            ->columnSpanFull(),
+                    ])
+                    ->collapsible(),
+                
                 Repeater::make('locales')
                     ->label('Доступные языки')
                     ->schema([

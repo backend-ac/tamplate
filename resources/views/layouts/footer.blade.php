@@ -1,30 +1,40 @@
 <footer class="footer">
     <div class="footer__wrapper container">
         <div class="footer__top">
-            <img src="./img/footer-logo.svg" alt="">
+            <a href="/"><img src="{{ $siteSettings?->logo ?? asset('img/logo.svg') }}" alt=""></a>
             <div class="footer__contacts">
                 <h3>Контакты</h3>
                 <ul>
-                    <li>
-                        <p>г. Астана, Мангилик Ел 23</p>
-                        <span><a href="tel:77172302891">+7 7172 302 891</a>  - г. Астана</a></span>
-                        <a href="tel:77779201777">+7 777 920 17 77</a>
-                        <a href="tel:77078988855">+7 707 898 88 55</a>
-                    </li>
-                    <li>
-                        <p>г. Уральск, Нур-Султан Назарбаев 97/1</p>
-                        <span><a href="tel:77112265045">+7 7112 265 045</a>  - г. Уральск</a></span>
-                    </li>
-                    <li>
-                        <p>г. Атырау, Промзона Онтустик 81</p>
-                        <p>г. Актау, Промзона №6, участок №87</p>
-                        <a href="maito:kaz.snab.gr@mail.ru">kaz.snab.gr@mail.ru</a>
-                    </li>
+                    @php
+                        $contacts = $siteSettings?->footer_contacts ?? [];
+                    @endphp
+                    @foreach($contacts as $contact)
+                        <li>
+                            @if(!empty($contact['address']))
+                                <p>{{ $contact['address'] }}</p>
+                            @endif
+                            @if(!empty($contact['phones']))
+                                @foreach($contact['phones'] as $phone)
+                                    @if(!empty($phone['number']))
+                                        <span>
+                                            <a href="tel:{{ preg_replace('/[^0-9]/', '', $phone['number']) }}">{{ $phone['number'] }}</a>
+                                            @if(!empty($phone['label']))
+                                                - {{ $phone['label'] }}
+                                            @endif
+                                        </span>
+                                    @endif
+                                @endforeach
+                            @endif
+                            @if(!empty($contact['email']))
+                                <a href="mailto:{{ $contact['email'] }}">{{ $contact['email'] }}</a>
+                            @endif
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </div>
         <div class="footer__bot">
-            <span>KAZSNAB-GROUP 2025, © Все права защищены</span>
+            <span>{{ $siteSettings?->footer_copyright ?? 'KAZSNAB-GROUP 2025, © Все права защищены' }}</span>
             <a href="https://astanacreative.kz/">Разработано в Astana Creative</a>
         </div>
     </div>
