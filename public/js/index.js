@@ -135,4 +135,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     $('input[type="tel"]').on('click', function () {
     }).mask('+7 (999) 999 99 99');
-})
+});
+
+window.onload = () => {
+    const heroSlider = new Swiper('.hero__slider', {
+      slidesPerView: 1,
+      effect: 'fade',
+      fadeEffect: { crossFade: true },
+      // loop: true,
+      // speed: 2000,
+      autoplay: {
+        delay: 5000,
+      },
+      navigation: {
+        prevEl: '.hero__nav-btn .swiper-button-prev',
+        nextEl: '.hero__nav-btn .swiper-button-next'
+      }
+    });
+}
