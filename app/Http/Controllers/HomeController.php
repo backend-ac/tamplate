@@ -36,6 +36,18 @@ class HomeController extends Controller
 
         $hasModal = $blocks->contains(function ($block) use ($locale, $defaultLocale) {
             $content = $block->content[$locale] ?? $block->content[$defaultLocale] ?? [];
+            
+            if ($block->type === 'hero' && isset($content['banners'])) {
+                foreach ($content['banners'] as $banner) {
+                    $ctaText = $banner['cta_text'] ?? null;
+                    $ctaHref = $banner['cta_href'] ?? null;
+                    if (!empty($ctaText) && (empty($ctaHref) || $ctaHref === 'javascript:;')) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            
             $ctaText = $content['cta_text'] ?? null;
             $ctaHref = $content['cta_href'] ?? null;
             

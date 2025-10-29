@@ -105,20 +105,28 @@ class BlockResource extends Resource
                                         switch ($type) {
                                             case 'hero':
                                                 return [
-                                                    FileUpload::make('image')
-                                                        ->label('Фоновое изображение')
-                                                        ->image()
-                                                        ->directory('blocks/hero')
-                                                        ->visibility('public')
-                                                        ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg'])
-                                                        ->maxSize(5120)
-                                                        ->helperText('Загрузите фоновое изображение (PNG, JPG, WEBP, макс 5МБ)')
+                                                    Repeater::make('banners')
+                                                        ->label('Баннеры')
+                                                        ->schema([
+                                                            FileUpload::make('image')
+                                                                ->label('Фоновое изображение')
+                                                                ->image()
+                                                                ->directory('blocks/hero')
+                                                                ->visibility('public')
+                                                                ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg'])
+                                                                ->maxSize(5120)
+                                                                ->helperText('Загрузите фоновое изображение (PNG, JPG, WEBP, макс 5МБ)')
+                                                                ->columnSpanFull(),
+                                                            TextInput::make('title')->label('Заголовок')->columnSpanFull(),
+                                                            Textarea::make('subtitle')->label('Подзаголовок')->columnSpanFull(),
+                                                            Textarea::make('text')->label('Текст под заголовком')->columnSpanFull(),
+                                                            TextInput::make('cta_text')->label('Текст кнопки'),
+                                                            TextInput::make('cta_href')->label('Ссылка кнопки'),
+                                                        ])
+                                                        ->collapsed()
+                                                        ->itemLabel(fn (array $state): ?string => $state['title'] ?? 'Баннер')
+                                                        ->defaultItems(1)
                                                         ->columnSpanFull(),
-                                                    TextInput::make('title')->label('Заголовок')->columnSpanFull(),
-                                                    Textarea::make('subtitle')->label('Подзаголовок')->columnSpanFull(),
-                                                    Textarea::make('text')->label('Текст под заголовком')->columnSpanFull(),
-                                                    TextInput::make('cta_text')->label('Текст кнопки'),
-                                                    TextInput::make('cta_href')->label('Ссылка кнопки'),
                                                 ];
 
                                             case 'assortment':

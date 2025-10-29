@@ -2,19 +2,37 @@
     <div class="swiper hero__slider">
         <div class="swiper-container">
             <div class="swiper-wrapper">
+                @php
+                    $banners = $data['banners'] ?? [];
+                    if (empty($banners) && isset($data['title'])) {
+                        $banners = [$data];
+                    }
+                @endphp
+                @forelse($banners as $banner)
                 <div class="swiper-slide hero__slide">
-                    <img class="bg-img" src="{{ isset($data['image']) && $data['image'] ? asset('storage/' . $data['image']) : asset('img/hero-img.png') }}" alt="{{ $data['title'] ?? '' }}">
+                    <img class="bg-img" src="{{ isset($banner['image']) && $banner['image'] ? asset('storage/' . $banner['image']) : asset('img/hero-img.png') }}" alt="{{ $banner['title'] ?? '' }}">
                     <div class="container">
                         <div class="hero__content">
-                            <h1 class="title">{{ $data['title'] ?? '' }}</h1>
-                            <p>{{ $data['subtitle'] ?? '' }}</p>
-                            @if(($data['text'] ?? null))<p>{{ $data['text'] }}</p>@endif
-                            @if(($data['cta_text'] ?? null))
-                                <a class="open-modal btn-hov" href="{{ $data['cta_href'] ?? 'javascript:;' }}">{{ $data['cta_text'] ?? '' }}</a>
+                            <h1 class="title">{{ $banner['title'] ?? '' }}</h1>
+                            <p>{{ $banner['subtitle'] ?? '' }}</p>
+                            @if(($banner['text'] ?? null))<p>{{ $banner['text'] }}</p>@endif
+                            @if(($banner['cta_text'] ?? null))
+                                <a class="open-modal btn-hov" href="{{ $banner['cta_href'] ?? 'javascript:;' }}">{{ $banner['cta_text'] ?? '' }}</a>
                             @endif
                         </div>
                     </div>
                 </div>
+                @empty
+                <div class="swiper-slide hero__slide">
+                    <img class="bg-img" src="{{ asset('img/hero-img.png') }}" alt="">
+                    <div class="container">
+                        <div class="hero__content">
+                            <h1 class="title"></h1>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+                @endforelse
             </div>
             <div class="container">
                 <div class="hero__nav-btn">
