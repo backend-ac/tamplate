@@ -1,7 +1,6 @@
 <section class="hero">
     <div class="swiper hero__slider">
-        <div class="swiper-container">
-            <div class="swiper-wrapper">
+      <div class="swiper-wrapper">
                 @php
                     $banners = $data['banners'] ?? [];
                     if (empty($banners) && isset($data['title'])) {
@@ -33,14 +32,13 @@
                     </div>
                 </div>
                 @endforelse
-            </div>
-            <div class="container">
+      </div>
+      <div class="container">
                 <div class="hero__nav-btn">
                     <div class="swiper-button-prev">@include('partials.svg.hero-prev')</div>
                     <div class="swiper-button-next">@include('partials.svg.hero-next')</div>
                 </div>
-            </div>
-        </div>
+      </div>
     </div>
 </section>
 
