@@ -1,7 +1,7 @@
 <footer class="footer">
     <div class="footer__wrapper container">
         <div class="footer__top">
-            <a href="/"><img src="{{ $siteSettings?->logo ?? asset('img/logo.svg') }}" alt=""></a>
+            <a href="/"><img src="{{  asset('storage/' . $siteSettings?->logo) ?? asset('img/logo.svg') }}" alt=""></a>
             <div class="footer__contacts">
                 <h3>Контакты</h3>
                 <ul>
