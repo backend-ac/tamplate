@@ -14,7 +14,11 @@ class SetLocaleFromSettings
         $settings = SiteSetting::query()->first();
         $defaultLocale = $settings?->default_locale ?? 'ru';
         $isMultilingual = $settings?->is_multilingual ?? true;
-        $availableLocales = $settings?->locales ?: ['ru','en','kk'];
+        $localesRaw = $settings?->locales ?: [['value' => 'ru'], ['value' => 'en'], ['value' => 'kk']];
+        
+        $availableLocales = array_map(function ($locale) {
+            return is_array($locale) ? ($locale['value'] ?? 'ru') : $locale;
+        }, $localesRaw);
 
         $segment = $request->segment(1);
 

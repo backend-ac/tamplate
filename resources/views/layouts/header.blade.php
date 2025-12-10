@@ -29,18 +29,45 @@
                     </li>
                 </ul>
             </nav>
+            @php
+                $currentLocale = app()->getLocale();
+                $availableLocales = $siteSettings?->locales ?? [
+                    ['value' => 'ru'],
+                    ['value' => 'en'],
+                    ['value' => 'kk']
+                ];
+                $isMultilingual = $siteSettings?->is_multilingual ?? true;
+                
+                $localeLabels = [
+                    'ru' => 'RU',
+                    'en' => 'EN',
+                    'kk' => 'KZ',
+                ];
+            @endphp
+            @if($isMultilingual && count($availableLocales) > 1)
             <div class="header__lang">
-                <span>RU</span>
+                <span>{{ $localeLabels[$currentLocale] ?? strtoupper($currentLocale) }}</span>
                 <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M12 1.5L7 6.5L2 1.5" stroke="#6B53F6" stroke-width="3" stroke-linecap="round"
                           stroke-linejoin="round"/>
                 </svg>
 
                 <div class="header__lang-group">
-                    <a class="active" href="#">RU</a>
-                    <a href="#">KZ</a>
+                    @foreach($availableLocales as $locale)
+                        @php
+                            $localeCode = is_array($locale) ? ($locale['value'] ?? 'ru') : $locale;
+                            $localeUrl = $localeCode === ($siteSettings?->default_locale ?? 'ru') 
+                                ? url('/') 
+                                : url('/' . $localeCode);
+                        @endphp
+                        <a class="{{ $currentLocale === $localeCode ? 'active' : '' }}" 
+                           href="{{ $localeUrl }}">
+                            {{ $localeLabels[$localeCode] ?? strtoupper($localeCode) }}
+                        </a>
+                    @endforeach
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </header>
