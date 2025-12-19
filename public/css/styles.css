@@ -89,7 +89,7 @@
 }
 .header__lang-group {
   position: absolute;
-  bottom: -60px;
+  top: calc(100% + 10px);
   left: 0;
   display: flex;
   flex-direction: column;
