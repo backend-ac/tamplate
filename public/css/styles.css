@@ -639,6 +639,7 @@
 .footer__contacts ul li {
   display: flex;
   flex-direction: column;
+  row-gap: 15px;
 }
 .footer__contacts ul li p, .footer__contacts ul li a, .footer__contacts ul li span {
   color: #FFF;
