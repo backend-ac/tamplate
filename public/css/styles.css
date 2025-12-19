@@ -613,8 +613,8 @@
 }
 .footer__top {
   display: flex;
-  justify-content: space-between;
-  gap: 30px;
+  flex-wrap: wrap;
+  gap: 100px;
   margin-bottom: 48px;
 }
 .footer__top img {
@@ -626,10 +626,9 @@
 .footer__contacts h3 {
   color: #FFF;
   font-family: Inter;
-  font-size: 40px;
+  font-size: 32px;
   font-style: normal;
   font-weight: 800;
-  line-height: normal;
   margin-bottom: 24px;
 }
 .footer__contacts ul {
@@ -644,7 +643,7 @@
 .footer__contacts ul li p, .footer__contacts ul li a, .footer__contacts ul li span {
   color: #FFF;
   font-family: Inter;
-  font-size: 24px;
+  font-size: 18px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
