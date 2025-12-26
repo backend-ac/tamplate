@@ -82,8 +82,66 @@ class BlockResource extends Resource
                                 TextInput::make("custom_name.$key")
                                     ->label('Пользовательское название блока')
                                     ->helperText('Оставьте пустым для использования названия по умолчанию'),
+                                Group::make()
+                                    ->statePath("content.$key")
+                                    ->schema(function (Get $get) use ($key) {
+                                        $type = $get('type');
+                                        
+                                        if (!$type) {
+                                            return [];
+                                        }
+                                        
+                                        switch ($type) {
+                                            case 'hero':
+                                                return [
+                                                    TextInput::make('title')->label('Заголовок')->columnSpanFull(),
+                                                    Textarea::make('subtitle')->label('Подзаголовок')->columnSpanFull(),
+                                                    Textarea::make('text')->label('Текст под заголовком')->columnSpanFull(),
+                                                    TextInput::make('cta_text')->label('Текст кнопки'),
+                                                    TextInput::make('cta_href')->label('Ссылка кнопки'),
+                                                ];
+                                            
+                                            case 'assortment':
+                                            case 'supplies':
+                                            case 'why_us':
+                                            case 'stations':
+                                            case 'advantages':
+                                                return [
+                                                    TextInput::make('title')->label('Заголовок')->columnSpanFull(),
+                                                    Textarea::make('description')->label('Описание')->columnSpanFull(),
+                                                    Textarea::make('text')->label('Текст под заголовком')->columnSpanFull(),
+                                                    TextInput::make('cta_text')->label('Текст кнопки'),
+                                                    TextInput::make('cta_href')->label('Ссылка кнопки'),
+                                                ];
+                                            
+                                            case 'model':
+                                                return [
+                                                    TextInput::make('title_1')->label('Заголовок 1')->columnSpanFull(),
+                                                    Textarea::make('text_1')->label('Текст 1')->columnSpanFull(),
+                                                    TextInput::make('title_2')->label('Заголовок 2')->columnSpanFull(),
+                                                    Textarea::make('text_2')->label('Текст 2')->columnSpanFull(),
+                                                ];
+                                            
+                                            case 'office':
+                                            case 'certificate':
+                                            case 'partners':
+                                                return [
+                                                    TextInput::make('title')->label('Заголовок')->columnSpanFull(),
+                                                    Textarea::make('text')->label('Текст')->columnSpanFull(),
+                                                ];
+                                            
+                                            default:
+                                                return [
+                                                    TextInput::make('title')->label('Заголовок')->columnSpanFull(),
+                                                    Textarea::make('description')->label('Описание')->columnSpanFull(),
+                                                    Textarea::make('text')->label('Текст')->columnSpanFull(),
+                                                ];
+                                        }
+                                    })
+                                    ->columnSpanFull(),
                             ]);
                     })->toArray()),
+
 
                 Tabs::make('Локализации')
                     ->tabs(collect($locales)->map(function ($locale) {
@@ -117,13 +175,12 @@ class BlockResource extends Resource
                                                                 ->maxSize(5120)
                                                                 ->helperText('Загрузите фоновое изображение (PNG, JPG, WEBP, макс 5МБ)')
                                                                 ->columnSpanFull(),
-                                                            TextInput::make('title')->label('Заголовок')->columnSpanFull(),
-                                                            Textarea::make('subtitle')->label('Подзаголовок')->columnSpanFull(),
-                                                            Textarea::make('text')->label('Текст под заголовком')->columnSpanFull(),
-                                                            TextInput::make('cta_text')->label('Текст кнопки'),
-                                                            TextInput::make('cta_href')->label('Ссылка кнопки'),
+                                                            TextInput::make('image_alt')
+                                                                ->label('Alt текст для изображения')
+                                                                ->helperText('Описание изображения для поисковых систем')
+                                                                ->columnSpanFull(),
                                                         ])
-                                                        ->collapsed()
+                                                        
                                                         ->itemLabel(fn (array $state): ?string => $state['title'] ?? 'Баннер')
                                                         ->defaultItems(1)
                                                         ->columnSpanFull(),
@@ -135,9 +192,6 @@ class BlockResource extends Resource
                                             case 'stations':
                                             case 'advantages':
                                                 return [
-                                                    TextInput::make('title')->label('Заголовок')->columnSpanFull(),
-                                                    Textarea::make('description')->label('Описание')->columnSpanFull(),
-                                                    Textarea::make('text')->label('Текст под заголовком')->columnSpanFull(),
                                                     Repeater::make('items')
                                                         ->label('Элементы')
                                                         ->schema([
@@ -149,19 +203,18 @@ class BlockResource extends Resource
                                                                 ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg', 'image/svg+xml'])
                                                                 ->maxSize(3072)
                                                                 ->helperText('PNG, JPG, WEBP, SVG (макс 3МБ)'),
+                                                            TextInput::make('img_alt')
+                                                                ->label('Alt текст для изображения')
+                                                                ->helperText('Описание изображения для поисковых систем'),
                                                             TextInput::make('title')->label('Заголовок элемента'),
                                                             Textarea::make('text')->label('Текст элемента'),
                                                         ])
-                                                        ->collapsed()
+                                                        
                                                         ->columnSpanFull(),
-                                                    TextInput::make('cta_text')->label('Текст кнопки'),
-                                                    TextInput::make('cta_href')->label('Ссылка кнопки'),
                                                 ];
 
                                             case 'model':
                                                 return [
-                                                    TextInput::make('title_1')->label('Заголовок 1')->columnSpanFull(),
-                                                    Textarea::make('text_1')->label('Текст 1')->columnSpanFull(),
                                                     Repeater::make('images_1')
                                                         ->label('Изображения 1')
                                                         ->schema([
@@ -172,11 +225,12 @@ class BlockResource extends Resource
                                                                 ->visibility('public')
                                                                 ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg'])
                                                                 ->maxSize(3072),
+                                                            TextInput::make('alt')
+                                                                ->label('Alt текст для изображения')
+                                                                ->helperText('Описание изображения для поисковых систем'),
                                                         ])
-                                                        ->collapsed()
+                                                        
                                                         ->columnSpanFull(),
-                                                    TextInput::make('title_2')->label('Заголовок 2')->columnSpanFull(),
-                                                    Textarea::make('text_2')->label('Текст 2')->columnSpanFull(),
                                                     Repeater::make('images_2')
                                                         ->label('Изображения 2')
                                                         ->schema([
@@ -187,15 +241,16 @@ class BlockResource extends Resource
                                                                 ->visibility('public')
                                                                 ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg'])
                                                                 ->maxSize(3072),
+                                                            TextInput::make('alt')
+                                                                ->label('Alt текст для изображения')
+                                                                ->helperText('Описание изображения для поисковых систем'),
                                                         ])
-                                                        ->collapsed()
+                                                        
                                                         ->columnSpanFull(),
                                                 ];
 
                                             case 'office':
                                                 return [
-                                                    TextInput::make('title')->label('Заголовок')->columnSpanFull(),
-                                                    Textarea::make('text')->label('Текст')->columnSpanFull(),
                                                     Repeater::make('images')
                                                         ->label('Изображения')
                                                         ->schema([
@@ -206,15 +261,15 @@ class BlockResource extends Resource
                                                                 ->visibility('public')
                                                                 ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg'])
                                                                 ->maxSize(3072),
+                                                            TextInput::make('alt')
+                                                                ->label('Alt текст для изображения')
+                                                                ->helperText('Описание изображения для поисковых систем'),
                                                         ])
-                                                        ->collapsed()
                                                         ->columnSpanFull(),
                                                 ];
 
                                             case 'certificate':
                                                 return [
-                                                    TextInput::make('title')->label('Заголовок')->columnSpanFull(),
-                                                    Textarea::make('text')->label('Текст')->columnSpanFull(),
                                                     Repeater::make('images')
                                                         ->label('Сертификаты')
                                                         ->schema([
@@ -225,15 +280,16 @@ class BlockResource extends Resource
                                                                 ->visibility('public')
                                                                 ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg', 'application/pdf'])
                                                                 ->maxSize(5120),
+                                                            TextInput::make('alt')
+                                                                ->label('Alt текст для изображения')
+                                                                ->helperText('Описание изображения для поисковых систем'),
                                                         ])
-                                                        ->collapsed()
+                                                        
                                                         ->columnSpanFull(),
                                                 ];
 
                                             case 'partners':
                                                 return [
-                                                    TextInput::make('title')->label('Заголовок')->columnSpanFull(),
-                                                    Textarea::make('text')->label('Текст')->columnSpanFull(),
                                                     Repeater::make('logos')
                                                         ->label('Логотипы')
                                                         ->schema([
@@ -244,17 +300,16 @@ class BlockResource extends Resource
                                                                 ->visibility('public')
                                                                 ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg', 'image/svg+xml'])
                                                                 ->maxSize(2048),
+                                                            TextInput::make('alt')
+                                                                ->label('Alt текст для логотипа')
+                                                                ->helperText('Описание логотипа для поисковых систем'),
                                                         ])
-                                                        ->collapsed()
+                                                        
                                                         ->columnSpanFull(),
                                                 ];
 
                                             default:
-                                                return [
-                                                    TextInput::make('title')->label('Заголовок')->columnSpanFull(),
-                                                    Textarea::make('description')->label('Описание')->columnSpanFull(),
-                                                    Textarea::make('text')->label('Текст')->columnSpanFull(),
-                                                ];
+                                                return [];
                                         }
                                     }),
                             ]);
