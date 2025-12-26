@@ -8,7 +8,7 @@
             @php($title = is_array($item) ? ($item['title'] ?? '') : (string)$item)
             @php($text = is_array($item) ? ($item['text'] ?? '') : '')
             <div class="assortment__card">
-                <img src="{{ str_starts_with($img, 'blocks/') ? asset('storage/' . $img) : asset('img/' . $img) }}" alt="{{ $title }}">
+                <img src="{{ str_starts_with($img, 'blocks/') ? asset('storage/' . $img) : asset('img/' . $img) }}" alt="{{ $item['img_alt'] ?? $title }}">
                 @if($title !== '')<h3>{{ $title }}</h3>@endif
                 @if($text !== '')<p>{{ $text }}</p>@endif
             </div>

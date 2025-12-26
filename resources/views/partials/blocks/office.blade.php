@@ -8,7 +8,7 @@
                     <div class="swiper-slide">
                         <div class="office__slide">
                             @php($file = is_array($img) ? ($img['value'] ?? $img['img'] ?? '') : $img)
-                            <img src="{{ str_starts_with($file, 'blocks/') ? asset('storage/' . $file) : asset('img/' . $file) }}" alt="{{ $data['title'] ?? '' }}">
+                            <img src="{{ str_starts_with($file, 'blocks/') ? asset('storage/' . $file) : asset('img/' . $file) }}" alt="{{ $img['alt'] ?? $data['title'] ?? '' }}">
                         </div>
                     </div>
                 @endforeach

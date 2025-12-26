@@ -9,7 +9,7 @@
                 @endphp
                 @forelse($banners as $banner)
                 <div class="swiper-slide hero__slide">
-                    <img class="bg-img" src="{{ isset($banner['image']) && $banner['image'] ? asset('storage/' . $banner['image']) : asset('img/hero-img.png') }}" alt="{{ $banner['title'] ?? '' }}">
+                    <img class="bg-img" src="{{ isset($banner['image']) && $banner['image'] ? asset('storage/' . $banner['image']) : asset('img/hero-img.png') }}" alt="{{ $banner['image_alt'] ?? $banner['title'] ?? '' }}">
                     <div class="container">
                         <div class="hero__content">
                             <h1 class="title">{{ $banner['title'] ?? '' }}</h1>
