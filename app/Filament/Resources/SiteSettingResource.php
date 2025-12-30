@@ -91,6 +91,52 @@ class SiteSettingResource extends Resource
                     ->itemLabel('Язык')
                     ->columns(1),
                 
+                Section::make('SEO')
+                    ->description('Настройки SEO метаданных')
+                    ->schema([
+                        TextInput::make('default_meta_title')
+                            ->label('Meta Title по умолчанию')
+                            ->placeholder('Название сайта | Слоган')
+                            ->helperText('Шаблон для заголовка страниц. Используйте {page_title} для вставки названия страницы')
+                            ->columnSpanFull(),
+                        Textarea::make('default_meta_description')
+                            ->label('Meta Description по умолчанию')
+                            ->placeholder('Краткое описание сайта для поисковых систем')
+                            ->rows(2)
+                            ->columnSpanFull(),
+                        Textarea::make('default_meta_keywords')
+                            ->label('Meta Keywords по умолчанию')
+                            ->placeholder('ключевое слово, другое ключевое слово')
+                            ->helperText('Разделяйте ключевые слова запятыми')
+                            ->rows(2)
+                            ->columnSpanFull(),
+                        FileUpload::make('og_image')
+                            ->label('Изображение для Open Graph')
+                            ->image()
+                            ->directory('seo')
+                            ->visibility('public')
+                            ->helperText('Рекомендуемый размер 1200x630 пикселей')
+                            ->columnSpanFull(),
+                        Repeater::make('default_meta_tags')
+                            ->label('Дополнительные мета-теги')
+                            ->schema([
+                                TextInput::make('name')
+                                    ->label('Название')
+                                    ->placeholder('name, property или http-equiv')
+                                    ->required(),
+                                TextInput::make('value')
+                                    ->label('Значение')
+                                    ->placeholder('content')
+                                    ->required(),
+                            ])
+                            ->columns(2)
+                            ->collapsed()
+                            ->itemLabel(fn (array $state): ?string => $state['name'] ?? 'Мета-тег')
+                            ->defaultItems(0)
+                            ->columnSpanFull(),
+                    ])
+                    ->collapsible(),
+
                 Section::make('Метрики')
                     ->description('Добавьте скрипты аналитики и отслеживания')
                     ->schema([

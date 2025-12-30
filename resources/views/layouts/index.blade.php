@@ -4,7 +4,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KazSnab</title>
+    
+    {{-- SEO Meta Tags --}}
+    @php
+        $pageTitle = $pageTitle ?? ($title ?? null);
+        $metaTitle = $siteSettings && $siteSettings->default_meta_title 
+            ? str_replace('{page_title}', $pageTitle, $siteSettings->default_meta_title)
+            : ($pageTitle ? $pageTitle : 'KazSnab');
+        $metaDescription = $metaDescription ?? ($siteSettings ? $siteSettings->default_meta_description : null);
+        $metaKeywords = $metaKeywords ?? ($siteSettings ? $siteSettings->default_meta_keywords : null);
+        $ogImage = $ogImage ?? ($siteSettings && $siteSettings->og_image ? asset('storage/' . $siteSettings->og_image) : null);
+    @endphp
+    
+    <title>{{ $metaTitle }}</title>
+    
+    @if($metaDescription)
+        <meta name="description" content="{{ $metaDescription }}">
+    @endif
+    
+    @if($metaKeywords)
+        <meta name="keywords" content="{{ $metaKeywords }}">
+    @endif
+    
+    {{-- Open Graph Meta Tags --}}
+    <meta property="og:title" content="{{ $metaTitle }}">
+    @if($metaDescription)
+        <meta property="og:description" content="{{ $metaDescription }}">
+    @endif
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url()->current() }}">
+    @if($ogImage)
+        <meta property="og:image" content="{{ $ogImage }}">
+    @endif
+    
+    {{-- Additional Meta Tags --}}
+    @if($siteSettings && $siteSettings->default_meta_tags)
+        @foreach($siteSettings->default_meta_tags as $tag)
+            <meta {{ isset($tag['name']) ? "name={$tag['name']}" : '' }} content="{{ $tag['value'] ?? '' }}">
+        @endforeach
+    @endif
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link

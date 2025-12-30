@@ -7,12 +7,16 @@
                         $banners = [$data];
                     }
                 @endphp
-                @forelse($banners as $banner)
+                @forelse($banners as $key => $banner)
                 <div class="swiper-slide hero__slide">
                     <img class="bg-img" src="{{ isset($banner['image']) && $banner['image'] ? asset('storage/' . $banner['image']) : asset('img/hero-img.png') }}" alt="{{ $banner['image_alt'] ?? $banner['title'] ?? '' }}">
                     <div class="container">
                         <div class="hero__content">
-                            <h1 class="title">{{ $banner['title'] ?? '' }}</h1>
+                            @if($key === 0)
+                                <h1 class="title">{{ $banner['title'] ?? '' }}</h1>
+                            @else
+                                <h2 class="title">{{ $banner['title'] ?? '' }}</h2>
+                            @endif
                             <p>{{ $banner['subtitle'] ?? '' }}</p>
                             @if(($banner['text'] ?? null))<p>{{ $banner['text'] }}</p>@endif
                             @if(($banner['cta_text'] ?? null))

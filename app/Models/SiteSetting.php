@@ -18,6 +18,11 @@ class SiteSetting extends Model
         'footer_copyright',
         'head_metrics',
         'body_metrics',
+        'default_meta_title',
+        'default_meta_description',
+        'default_meta_keywords',
+        'og_image',
+        'default_meta_tags',
     ];
 
     protected $casts = [
@@ -26,6 +31,7 @@ class SiteSetting extends Model
         'footer_contacts' => 'array',
         'head_metrics' => 'array',
         'body_metrics' => 'array',
+        'default_meta_tags' => 'array',
     ];
 }
 
