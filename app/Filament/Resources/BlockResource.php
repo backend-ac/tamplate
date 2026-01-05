@@ -321,7 +321,22 @@ class BlockResource extends Resource
             ->reorderable('sort')
             ->columns([
                 Tables\Columns\TextColumn::make('page.slug')->label('Страница')->sortable(),
-                Tables\Columns\TextColumn::make('type')->label('Тип')->sortable(),
+                Tables\Columns\TextColumn::make('type')
+                    ->label('Тип')
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'hero' => 'Главный баннер',
+                        'assortment' => 'Ассортимент',
+                        'supplies' => 'Поставки',
+                        'why_us' => 'Почему мы',
+                        'stations' => 'Станции',
+                        'advantages' => 'Преимущества',
+                        'model' => 'Модель',
+                        'office' => 'Офис',
+                        'certificate' => 'Сертификаты',
+                        'partners' => 'Партнеры',
+                        default => $state,
+                    })
+                    ->sortable(),
                 Tables\Columns\IconColumn::make('enabled')->label('Включено')->boolean(),
                 Tables\Columns\TextColumn::make('sort')->label('Сортировка')->sortable(),
             ])
