@@ -58,7 +58,7 @@ class BlockResource extends Resource
                     ->label('Тип')
                     ->options([
                         'hero' => 'Главный баннер',
-                        'assortment' => 'Ассортимент',
+                        'assortment' => 'Продукция',
                         'supplies' => 'Услуги',
                         'why_us' => 'Почему мы',
                         'stations' => 'Станции',
@@ -325,7 +325,7 @@ class BlockResource extends Resource
                     ->label('Тип')
                     ->formatStateUsing(fn (string $state): string => match ($state) {
                         'hero' => 'Главный баннер',
-                        'assortment' => 'Ассортимент',
+                        'assortment' => 'Продукция',
                         'supplies' => 'Услуги',
                         'why_us' => 'Почему мы',
                         'stations' => 'Станции',
