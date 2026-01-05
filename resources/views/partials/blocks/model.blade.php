@@ -1,6 +1,6 @@
 <section class="model container indent">
     @if(isset($data['title_1']))
-        <h2 class="title">{{ $customName ?? $data['title_1'] }}</h2>
+        <h2 class="title">{{ $data['title_1'] }}</h2>
         @if(($data['text_1'] ?? null))<p>{{ $data['text_1'] }}</p>@endif
     @endif
     <div class="model__wrapper">

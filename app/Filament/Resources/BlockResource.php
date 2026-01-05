@@ -79,9 +79,6 @@ class BlockResource extends Resource
                         $key = is_array($locale) ? ($locale['value'] ?? 'ru') : $locale;
                         return Tabs\Tab::make('Название ' . strtoupper($key))
                             ->schema([
-                                TextInput::make("custom_name.$key")
-                                    ->label('Пользовательское название блока')
-                                    ->helperText('Оставьте пустым для использования названия по умолчанию'),
                                 Group::make()
                                     ->statePath("content.$key")
                                     ->schema(function (Get $get) use ($key) {

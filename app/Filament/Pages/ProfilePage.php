@@ -44,7 +44,7 @@ class ProfilePage extends Page
                             ->label('Email')
                             ->email()
                             ->required()
-                            ->unique(User::class, 'email', ignoreRecord: auth()->id()),
+                            ->unique(User::class, 'email', ignorable: fn () => auth()->user()),
                         TextInput::make('current_password')
                             ->label('Текущий пароль')
                             ->password()

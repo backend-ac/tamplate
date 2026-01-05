@@ -1,7 +1,7 @@
 <section class="why-us container indent">
     <div class="why-us__wrapper">
         <div class="why-us__left">
-            <h2 class="title">{{ $customName ?? $data['title'] ?? '' }}</h2>
+            <h2 class="title">{{ $data['title'] ?? '' }}</h2>
             <p>{{ $data['description'] ?? '' }}</p>
             @if(($data['text'] ?? null))<p>{{ $data['text'] }}</p>@endif
             @if(($data['cta_text'] ?? null))

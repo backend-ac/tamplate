@@ -1,5 +1,5 @@
 <section class="advantages assortment container indent">
-    <h2 class="title">{{ $customName ?? $data['title'] ?? '' }}</h2>
+    <h2 class="title">{{ $data['title'] ?? '' }}</h2>
     @if(($data['text'] ?? null))<p>{{ $data['text'] }}</p>@endif
     <div class="assortment__wrapper">
         @foreach(($data['items'] ?? []) as $item)
