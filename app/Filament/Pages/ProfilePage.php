@@ -3,6 +3,7 @@
 namespace App\Filament\Pages;
 
 use App\Models\User;
+use Filament\Actions\Action;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -80,7 +81,7 @@ class ProfilePage extends Page
             'email' => $data['email'],
         ];
         
-        if (isset($data['new_password'])) {
+        if (isset($data['new_password']) && !empty($data['new_password'])) {
             $updateData['password'] = Hash::make($data['new_password']);
         }
         
@@ -93,14 +94,7 @@ class ProfilePage extends Page
             ->send();
     }
 
-    public function getFormActions(): array
-    {
-        return [
-            \Filament\Forms\Components\Actions\Action::make('save')
-                ->label('Сохранить')
-                ->action('submit'),
-        ];
-    }
+    // Form actions are now directly in the view
 
     public static function shouldRegisterNavigation(): bool
     {

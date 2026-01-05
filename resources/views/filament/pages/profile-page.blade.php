@@ -3,7 +3,9 @@
         {{ $this->form }}
         
         <div class="mt-4">
-            {{ $this->getFormActions() }}
+            <x-filament::button type="submit">
+                Сохранить
+            </x-filament::button>
         </div>
     </form>
 </x-filament::page>
