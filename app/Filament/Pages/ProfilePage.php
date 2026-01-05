@@ -18,6 +18,7 @@ class ProfilePage extends Page
     protected static ?string $title = 'Мой профиль';
     protected static ?string $slug = 'profile';
     protected static ?int $navigationSort = 100;
+    protected static string $view = 'filament.pages.profile-page';
 
     use InteractsWithForms;
 
