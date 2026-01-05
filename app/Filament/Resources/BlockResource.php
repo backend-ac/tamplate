@@ -64,7 +64,7 @@ class BlockResource extends Resource
                         'stations' => 'Филиалы',
                         'advantages' => 'Преимущества',
                         'model' => 'Наша команда',
-                        'office' => 'Офис',
+                        'office' => 'Галерея',
                         'certificate' => 'Сертификаты',
                         'partners' => 'Партнеры',
                     ])
@@ -331,7 +331,7 @@ class BlockResource extends Resource
                         'stations' => 'Филиалы',
                         'advantages' => 'Преимущества',
                         'model' => 'Наша команда',
-                        'office' => 'Офис',
+                        'office' => 'Галерея',
                         'certificate' => 'Сертификаты',
                         'partners' => 'Партнеры',
                         default => $state,
