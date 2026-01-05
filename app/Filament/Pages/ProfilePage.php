@@ -3,7 +3,6 @@
 namespace App\Filament\Pages;
 
 use App\Models\User;
-use Filament\Actions\Action;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
@@ -23,13 +22,15 @@ class ProfilePage extends Page
 
     use InteractsWithForms;
 
-    public ?array $data = [];
+    public ?array $userData = [];
 
     public function mount(): void
     {
-        $this->form->fill([
+        $this->userData = [
             'email' => auth()->user()->email,
-        ]);
+        ];
+
+        $this->form->fill($this->userData);
     }
 
     public function form(Form $form): Form
@@ -43,11 +44,10 @@ class ProfilePage extends Page
                             ->label('Email')
                             ->email()
                             ->required()
-                            ->unique(User::class, 'email', ignoreRecord: true),
+                            ->unique(User::class, 'email', ignoreRecord: auth()->id()),
                         TextInput::make('current_password')
                             ->label('Текущий пароль')
                             ->password()
-                            ->required()
                             ->dehydrated(false)
                             ->rules(['required_with:new_password'])
                             ->currentPassword(),
@@ -55,19 +55,18 @@ class ProfilePage extends Page
                             ->label('Новый пароль')
                             ->password()
                             ->dehydrated(fn ($state) => filled($state))
-                            ->rules(['confirmed', 'min:8'])
-                            ->autocomplete('new-password'),
+                            ->rules(['confirmed', 'min:8']),
                         TextInput::make('new_password_confirmation')
                             ->label('Подтверждение пароля')
                             ->password()
                             ->dehydrated(false)
                             ->rules([
                                 'required_with:new_password',
-                            ])
-                            ->autocomplete('new-password'),
+                            ]),
                     ])
                     ->columns(2),
-            ]);
+            ])
+            ->statePath('userData');
     }
 
     public function submit(): void
@@ -94,8 +93,6 @@ class ProfilePage extends Page
             ->send();
     }
 
-    // Form actions are now directly in the view
-
     public static function shouldRegisterNavigation(): bool
     {
         return auth()->check();
@@ -104,10 +101,5 @@ class ProfilePage extends Page
     public static function getNavigationGroup(): ?string
     {
         return null;
-    }
-
-    protected function getHeaderActions(): array
-    {
-        return [];
     }
 }
