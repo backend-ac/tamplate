@@ -50,7 +50,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.css?_v=20250416184948">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/styles.css?v=1.11') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css?v=1.12') }}">
     
     {{-- Head Metrics --}}
     @if($siteSettings && $siteSettings->head_metrics)

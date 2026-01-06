@@ -233,7 +233,8 @@
   width: 100%;
   max-width: 810px;
 }
-.hero__content h1 {
+.hero__content h1,
+.hero__content h2 {
   color: #FFF;
   leading-trim: both;
   text-edge: cap;
