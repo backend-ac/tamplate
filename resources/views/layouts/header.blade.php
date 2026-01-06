@@ -25,7 +25,7 @@
                             $title = $content['title'] ?? ($blockType === 'model' ? ($content['title_1'] ?? $blockType) : $blockType);
                         @endphp
                         <li>
-                            <a href="{{ url($pageSlug . '#' . $blockType) }}">{{ $title }}</a>
+                            <a href="#{{ $blockType }}">{{ $title }}</a>
                         </li>
                     @endforeach
                     
