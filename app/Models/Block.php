@@ -15,12 +15,14 @@ class Block extends Model
         'type',
         'custom_name',
         'enabled',
+        'show_in_navigation',
         'sort',
         'content',
     ];
 
     protected $casts = [
         'enabled' => 'boolean',
+        'show_in_navigation' => 'boolean',
         'custom_name' => 'array',
         'content' => 'array',
     ];
