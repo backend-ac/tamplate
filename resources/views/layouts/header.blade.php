@@ -9,24 +9,46 @@
             </div>
             <nav class="header__nav">
                 <ul>
-                    <li>
-                        <a href="#about">О компании</a>
-                    </li>
-                    <li>
-                        <a href="#adv">Преимущества</a>
-                    </li>
-                    <li>
-                        <a href="#gallery">Галерея</a>
-                    </li>
-                    <li>
-                        <a href="#services">Услуги</a>
-                    </li>
-                    <li>
-                        <a href="#reviews">Отзывы</a>
-                    </li>
-                    <li>
-                        <a href="#contacts">Контакты</a>
-                    </li>
+                    @php
+                        $navigationBlocks = \App\Models\Block::where('enabled', true)
+                            ->where('show_in_navigation', true)
+                            ->orderBy('sort')
+                            ->get();
+                    @endphp
+                    
+                    @foreach($navigationBlocks as $block)
+                        @php
+                            $pageSlug = $block->page->slug ?? '#';
+                            $blockType = $block->type;
+                            $currentLocale = app()->getLocale();
+                            $content = $block->content[$currentLocale] ?? [];
+                            $title = $content['title'] ?? ($blockType === 'model' ? ($content['title_1'] ?? $blockType) : $blockType);
+                        @endphp
+                        <li>
+                            <a href="{{ url($pageSlug . '#' . $blockType) }}">{{ $title }}</a>
+                        </li>
+                    @endforeach
+                    
+                    @if($navigationBlocks->isEmpty())
+                        <li>
+                            <a href="#about">О компании</a>
+                        </li>
+                        <li>
+                            <a href="#adv">Преимущества</a>
+                        </li>
+                        <li>
+                            <a href="#gallery">Галерея</a>
+                        </li>
+                        <li>
+                            <a href="#services">Услуги</a>
+                        </li>
+                        <li>
+                            <a href="#reviews">Отзывы</a>
+                        </li>
+                        <li>
+                            <a href="#contacts">Контакты</a>
+                        </li>
+                    @endif
                 </ul>
             </nav>
             @php

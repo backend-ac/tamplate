@@ -72,6 +72,7 @@ class BlockResource extends Resource
                     ->required(),
 
                 Forms\Components\Toggle::make('enabled')->default(true),
+                Forms\Components\Toggle::make('show_in_navigation')->label('Показывать в меню навигации')->default(false),
                 TextInput::make('sort')->numeric()->default(0)->required(),
 
                 Tabs::make('Пользовательское название')
@@ -321,6 +322,7 @@ class BlockResource extends Resource
             ->reorderable('sort')
             ->columns([
                 Tables\Columns\TextColumn::make('page.slug')->label('Страница')->sortable(),
+                Tables\Columns\IconColumn::make('show_in_navigation')->label('В навигации')->boolean(),
                 Tables\Columns\TextColumn::make('type')
                     ->label('Тип')
                     ->formatStateUsing(fn (string $state): string => match ($state) {
