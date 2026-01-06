@@ -312,7 +312,7 @@ class BlockResource extends Resource
                                     }),
                             ]);
                     })->toArray()),
-            ]);
+            ])->columns(1);
     }
 
 
