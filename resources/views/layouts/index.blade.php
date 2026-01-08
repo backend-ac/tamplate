@@ -5,6 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    {{-- Favicon --}}
+    @if($siteSettings && $siteSettings->favicon)
+        <link rel="icon" href="{{ asset('storage/' . $siteSettings->favicon) }}" type="image/x-icon">
+        <link rel="shortcut icon" href="{{ asset('storage/' . $siteSettings->favicon) }}" type="image/x-icon">
+    @endif
+    
     {{-- SEO Meta Tags --}}
     @php
         $pageTitle = $pageTitle ?? ($title ?? null);

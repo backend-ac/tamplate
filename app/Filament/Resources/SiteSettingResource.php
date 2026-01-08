@@ -39,6 +39,14 @@ class SiteSettingResource extends Resource
                             ->acceptedFileTypes(['image/svg+xml', 'image/png', 'image/jpeg', 'image/webp'])
                             ->maxSize(2048)
                             ->helperText('Загрузите логотип для шапки сайта (SVG, PNG, JPG, WEBP, макс 2МБ)'),
+                        FileUpload::make('favicon')
+                            ->label('Favicon')
+                            ->image()
+                            ->directory('favicon')
+                            ->visibility('public')
+                            ->acceptedFileTypes(['image/x-icon', 'image/png', 'image/svg+xml'])
+                            ->maxSize(1024)
+                            ->helperText('Загрузите favicon для сайта (ICO, PNG, SVG, макс 1МБ)'),
                     ])
                     ->columns(2)
                     ->collapsible(),
@@ -186,6 +194,7 @@ class SiteSettingResource extends Resource
     {
         return $table->columns([
             Tables\Columns\ImageColumn::make('logo')->label('Логотип'),
+            Tables\Columns\ImageColumn::make('favicon')->label('Favicon'),
             Tables\Columns\IconColumn::make('is_multilingual')->label('Многоязычность')->boolean(),
             Tables\Columns\TextColumn::make('default_locale')->label('Язык по умолчанию'),
         ])->actions([

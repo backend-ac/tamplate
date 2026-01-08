@@ -14,6 +14,7 @@ class SiteSetting extends Model
         'default_locale',
         'locales',
         'logo',
+        'favicon',
         'footer_contacts',
         'footer_copyright',
         'head_metrics',
