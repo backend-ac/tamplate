@@ -67,6 +67,7 @@ class BlockResource extends Resource
                         'office' => 'Галерея',
                         'certificate' => 'Сертификаты',
                         'partners' => 'Партнеры',
+                        'about' => 'О Компании',
                     ])
                     ->live()
                     ->required(),
@@ -123,6 +124,7 @@ class BlockResource extends Resource
                                             case 'office':
                                             case 'certificate':
                                             case 'partners':
+                                            case 'about':
                                                 return [
                                                     TextInput::make('title')->label('Заголовок')->columnSpanFull(),
                                                     Textarea::make('text')->label('Текст')->columnSpanFull(),
@@ -305,6 +307,21 @@ class BlockResource extends Resource
                                                         
                                                         ->columnSpanFull(),
                                                 ];
+                                                
+                                            case 'about':
+                                                return [
+                                                    FileUpload::make('image')
+                                                        ->label('Изображение')
+                                                        ->image()
+                                                        ->directory('blocks/about')
+                                                        ->visibility('public')
+                                                        ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg'])
+                                                        ->maxSize(3072)
+                                                        ->helperText('PNG, JPG, WEBP (макс 3МБ)'),
+                                                    TextInput::make('image_alt')
+                                                        ->label('Alt текст для изображения')
+                                                        ->helperText('Описание изображения для поисковых систем'),
+                                                ];
 
                                             default:
                                                 return [];
@@ -336,6 +353,7 @@ class BlockResource extends Resource
                         'office' => 'Галерея',
                         'certificate' => 'Сертификаты',
                         'partners' => 'Партнеры',
+                        'about' => 'О Компании',
                         default => $state,
                     })
                     ->sortable(),
