@@ -20,7 +20,11 @@
                             <p>{{ $banner['subtitle'] ?? '' }}</p>
                             @if(($banner['text'] ?? null))<p>{{ $banner['text'] }}</p>@endif
                             @if(($banner['cta_text'] ?? null))
-                                <a class="open-modal btn-hov" href="{{ $banner['cta_href'] ?? 'javascript:;' }}">{{ $banner['cta_text'] ?? '' }}</a>
+                                @if(!empty($banner['cta_href']))
+                                    <a class="btn-hov" href="{{ $banner['cta_href'] }}">{{ $banner['cta_text'] }}</a>
+                                @else
+                                    <a class="open-modal btn-hov" href="javascript:;">{{ $banner['cta_text'] }}</a>
+                                @endif
                             @endif
                         </div>
                     </div>

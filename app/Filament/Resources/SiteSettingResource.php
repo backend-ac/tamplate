@@ -47,8 +47,16 @@ class SiteSettingResource extends Resource
                             ->acceptedFileTypes(['image/x-icon', 'image/png', 'image/svg+xml'])
                             ->maxSize(1024)
                             ->helperText('Загрузите favicon для сайта (ICO, PNG, SVG, макс 1МБ)'),
+                        FileUpload::make('footer_logo')
+                            ->label('Логотип Footer')
+                            ->image()
+                            ->directory('logos')
+                            ->visibility('public')
+                            ->acceptedFileTypes(['image/svg+xml', 'image/png', 'image/jpeg', 'image/webp'])
+                            ->maxSize(2048)
+                            ->helperText('Загрузите логотип для подвала сайта (SVG, PNG, JPG, WEBP, макс 2МБ)'),
                     ])
-                    ->columns(2)
+                    ->columns(3)
                     ->collapsible(),
                 
                 Section::make('Footer')
