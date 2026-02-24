@@ -57,7 +57,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.css?_v=20250416184948">
     <link rel="stylesheet" href="{{ asset('css/jquery.fancybox.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/styles.css?v=1.13') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css?v=1.14') }}">
     
     {{-- Head Metrics --}}
     @if($siteSettings && $siteSettings->head_metrics)
@@ -120,7 +120,7 @@
 <script src="{{ asset('js/jquery.maskedinput.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js?_v=20250416184948"></script>
 <script src="{{ asset('js/jquery.fancybox.min.js') }}"></script>
-<script src="{{ asset('js/index.js?v=1.1') }}"></script>
+<script src="{{ asset('js/index.js?v=1.11') }}"></script>
 <script src="{{ asset('js/smooth-scroll.js?v=1.0') }}"></script>
 </body>
 
