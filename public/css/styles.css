@@ -259,6 +259,15 @@
 .hero__text {
   color: #fff;
 }
+
+.certificate__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
 .hero__content p {
   color: #FFF;
   leading-trim: both;
