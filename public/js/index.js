@@ -72,8 +72,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
         },
 
         navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
+            nextEl: '.certificate__slider .swiper-button-next',
+            prevEl: '.certificate__slider .swiper-button-prev',
         },
         // autoplay: {
         //     delay: 3500,
