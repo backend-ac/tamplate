@@ -10,6 +10,7 @@ use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Tabs;
 use Filament\Forms\Components\Group;
 use Filament\Forms\Components\FileUpload;
@@ -94,8 +95,8 @@ class BlockResource extends Resource
                                             case 'hero':
                                                 return [
                                                     TextInput::make('title')->label('Заголовок')->columnSpanFull(),
-                                                    Textarea::make('subtitle')->label('Подзаголовок')->columnSpanFull(),
-                                                    Textarea::make('text')->label('Текст под заголовком')->columnSpanFull(),
+                                                    RichEditor::make('subtitle')->label('Подзаголовок')->columnSpanFull(),
+                                                    RichEditor::make('text')->label('Текст под заголовком')->columnSpanFull(),
                                                     TextInput::make('cta_text')->label('Текст кнопки'),
                                                     TextInput::make('cta_href')->label('Ссылка кнопки'),
                                                 ];
@@ -107,8 +108,8 @@ class BlockResource extends Resource
                                             case 'advantages':
                                                 return [
                                                     TextInput::make('title')->label('Заголовок')->columnSpanFull(),
-                                                    Textarea::make('description')->label('Описание')->columnSpanFull(),
-                                                    Textarea::make('text')->label('Текст под заголовком')->columnSpanFull(),
+                                                    RichEditor::make('description')->label('Описание')->columnSpanFull(),
+                                                    RichEditor::make('text')->label('Текст под заголовком')->columnSpanFull(),
                                                     TextInput::make('cta_text')->label('Текст кнопки'),
                                                     TextInput::make('cta_href')->label('Ссылка кнопки'),
                                                 ];
@@ -116,9 +117,9 @@ class BlockResource extends Resource
                                             case 'model':
                                                 return [
                                                     TextInput::make('title_1')->label('Заголовок 1')->columnSpanFull(),
-                                                    Textarea::make('text_1')->label('Текст 1')->columnSpanFull(),
+                                                    RichEditor::make('text_1')->label('Текст 1')->columnSpanFull(),
                                                     TextInput::make('title_2')->label('Заголовок 2')->columnSpanFull(),
-                                                    Textarea::make('text_2')->label('Текст 2')->columnSpanFull(),
+                                                    RichEditor::make('text_2')->label('Текст 2')->columnSpanFull(),
                                                 ];
                                             
                                             case 'office':
@@ -127,14 +128,14 @@ class BlockResource extends Resource
                                             case 'about':
                                                 return [
                                                     TextInput::make('title')->label('Заголовок')->columnSpanFull(),
-                                                    Textarea::make('text')->label('Текст')->columnSpanFull(),
+                                                    RichEditor::make('text')->label('Текст')->columnSpanFull(),
                                                 ];
                                             
                                             default:
                                                 return [
                                                     TextInput::make('title')->label('Заголовок')->columnSpanFull(),
-                                                    Textarea::make('description')->label('Описание')->columnSpanFull(),
-                                                    Textarea::make('text')->label('Текст')->columnSpanFull(),
+                                                    RichEditor::make('description')->label('Описание')->columnSpanFull(),
+                                                    RichEditor::make('text')->label('Текст')->columnSpanFull(),
                                                 ];
                                         }
                                     })
@@ -173,6 +174,8 @@ class BlockResource extends Resource
                                                                 ->visibility('public')
                                                                 ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg'])
                                                                 ->maxSize(5120)
+                                                                ->preserveFilenames()
+                                                                ->storeFileNamesIn('image_filename')
                                                                 ->helperText('Загрузите фоновое изображение (PNG, JPG, WEBP, макс 5МБ)')
                                                                 ->columnSpanFull(),
                                                             TextInput::make('image_alt')
@@ -202,12 +205,14 @@ class BlockResource extends Resource
                                                                 ->visibility('public')
                                                                 ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg', 'image/svg+xml'])
                                                                 ->maxSize(3072)
+                                                                ->preserveFilenames()
+                                                                ->storeFileNamesIn('img_filename')
                                                                 ->helperText('PNG, JPG, WEBP, SVG (макс 3МБ)'),
                                                             TextInput::make('img_alt')
                                                                 ->label('Alt текст для изображения')
                                                                 ->helperText('Описание изображения для поисковых систем'),
                                                             TextInput::make('title')->label('Заголовок элемента'),
-                                                            Textarea::make('text')->label('Текст элемента'),
+                                                            RichEditor::make('text')->label('Текст элемента'),
                                                         ])
                                                         
                                                         ->columnSpanFull(),
@@ -224,7 +229,9 @@ class BlockResource extends Resource
                                                                 ->directory('blocks/model')
                                                                 ->visibility('public')
                                                                 ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg'])
-                                                                ->maxSize(3072),
+                                                                ->maxSize(3072)
+                                                                ->preserveFilenames()
+                                                                ->storeFileNamesIn('value_filename'),
                                                             TextInput::make('alt')
                                                                 ->label('Alt текст для изображения')
                                                                 ->helperText('Описание изображения для поисковых систем'),
@@ -240,7 +247,9 @@ class BlockResource extends Resource
                                                                 ->directory('blocks/model')
                                                                 ->visibility('public')
                                                                 ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg'])
-                                                                ->maxSize(3072),
+                                                                ->maxSize(3072)
+                                                                ->preserveFilenames()
+                                                                ->storeFileNamesIn('value_filename'),
                                                             TextInput::make('alt')
                                                                 ->label('Alt текст для изображения')
                                                                 ->helperText('Описание изображения для поисковых систем'),
@@ -260,7 +269,9 @@ class BlockResource extends Resource
                                                                 ->directory('blocks/office')
                                                                 ->visibility('public')
                                                                 ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg'])
-                                                                ->maxSize(3072),
+                                                                ->maxSize(3072)
+                                                                ->preserveFilenames()
+                                                                ->storeFileNamesIn('value_filename'),
                                                             TextInput::make('alt')
                                                                 ->label('Alt текст для изображения')
                                                                 ->helperText('Описание изображения для поисковых систем'),
@@ -279,7 +290,9 @@ class BlockResource extends Resource
                                                                 ->directory('blocks/certificates')
                                                                 ->visibility('public')
                                                                 ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg', 'application/pdf'])
-                                                                ->maxSize(5120),
+                                                                ->maxSize(5120)
+                                                                ->preserveFilenames()
+                                                                ->storeFileNamesIn('value_filename'),
                                                             TextInput::make('alt')
                                                                 ->label('Alt текст для изображения')
                                                                 ->helperText('Описание изображения для поисковых систем'),
@@ -299,7 +312,9 @@ class BlockResource extends Resource
                                                                 ->directory('blocks/partners')
                                                                 ->visibility('public')
                                                                 ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg', 'image/svg+xml'])
-                                                                ->maxSize(2048),
+                                                                ->maxSize(2048)
+                                                                ->preserveFilenames()
+                                                                ->storeFileNamesIn('img_filename'),
                                                             TextInput::make('alt')
                                                                 ->label('Alt текст для логотипа')
                                                                 ->helperText('Описание логотипа для поисковых систем'),
@@ -317,6 +332,8 @@ class BlockResource extends Resource
                                                         ->visibility('public')
                                                         ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg'])
                                                         ->maxSize(3072)
+                                                        ->preserveFilenames()
+                                                        ->storeFileNamesIn('image_filename')
                                                         ->helperText('PNG, JPG, WEBP (макс 3МБ)'),
                                                     TextInput::make('image_alt')
                                                         ->label('Alt текст для изображения')
