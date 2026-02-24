@@ -69,6 +69,7 @@ class BlockResource extends Resource
                         'certificate' => 'Сертификаты',
                         'partners' => 'Партнеры',
                         'about' => 'О Компании',
+                        'faq' => 'Частые вопросы',
                     ])
                     ->live()
                     ->required(),
@@ -126,6 +127,7 @@ class BlockResource extends Resource
                                             case 'certificate':
                                             case 'partners':
                                             case 'about':
+                                            case 'faq':
                                                 return [
                                                     TextInput::make('title')->label('Заголовок')->columnSpanFull(),
                                                     RichEditor::make('text')->label('Текст')->columnSpanFull(),
@@ -339,6 +341,30 @@ class BlockResource extends Resource
                                                         ->label('Alt текст для изображения')
                                                         ->helperText('Описание изображения для поисковых систем'),
                                                 ];
+                                                
+                                            case 'faq':
+                                                return [
+                                                    Repeater::make('items')
+                                                        ->label('Вопросы')
+                                                        ->schema([
+                                                            TextInput::make('question')
+                                                                ->label('Вопрос')
+                                                                ->required()
+                                                                ->columnSpanFull(),
+                                                            RichEditor::make('answer')
+                                                                ->label('Ответ')
+                                                                ->required()
+                                                                ->columnSpanFull(),
+                                                            TextInput::make('sort')
+                                                                ->label('Сортировка')
+                                                                ->numeric()
+                                                                ->default(0),
+                                                        ])
+                                                        ->itemLabel(fn (array $state): ?string => $state['question'] ?? 'Вопрос')
+                                                        ->defaultItems(0)
+                                                        ->reorderable()
+                                                        ->columnSpanFull(),
+                                                ];
 
                                             default:
                                                 return [];
@@ -371,6 +397,7 @@ class BlockResource extends Resource
                         'certificate' => 'Сертификаты',
                         'partners' => 'Партнеры',
                         'about' => 'О Компании',
+                        'faq' => 'Частые вопросы',
                         default => $state,
                     })
                     ->sortable(),
