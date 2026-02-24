@@ -233,6 +233,10 @@
   padding: 17% 0 23%;
 }
 .hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  row-gap: 15px;
   position: relative;
   z-index: 5;
   width: 100%;
@@ -244,7 +248,7 @@
   leading-trim: both;
   text-edge: cap;
   font-family: Inter;
-  font-size: 64px;
+  font-size: 48px;
   font-style: normal;
   font-weight: 800;
   line-height: 128%;
