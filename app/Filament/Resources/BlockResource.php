@@ -70,6 +70,7 @@ class BlockResource extends Resource
                         'partners' => 'Партнеры',
                         'about' => 'О Компании',
                         'faq' => 'Частые вопросы',
+                        'reviews' => 'Отзывы',
                     ])
                     ->live()
                     ->required(),
@@ -128,6 +129,7 @@ class BlockResource extends Resource
                                             case 'partners':
                                             case 'about':
                                             case 'faq':
+                                            case 'reviews':
                                                 return [
                                                     TextInput::make('title')->label('Заголовок')->columnSpanFull(),
                                                     RichEditor::make('text')->label('Текст')->columnSpanFull(),
@@ -365,6 +367,74 @@ class BlockResource extends Resource
                                                         ->reorderable()
                                                         ->columnSpanFull(),
                                                 ];
+                                                
+                                            case 'reviews':
+                                                return [
+                                                    FileUpload::make('background_image')
+                                                        ->label('Фоновое изображение')
+                                                        ->image()
+                                                        ->directory('blocks/reviews')
+                                                        ->visibility('public')
+                                                        ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg'])
+                                                        ->maxSize(3072)
+                                                        ->preserveFilenames()
+                                                        ->storeFileNamesIn('background_image_filename')
+                                                        ->helperText('PNG, JPG, WEBP (макс 3МБ)'),
+                                                    TextInput::make('background_image_alt')
+                                                        ->label('Alt текст для фонового изображения')
+                                                        ->helperText('Описание изображения для поисковых систем'),
+                                                    Repeater::make('items')
+                                                        ->label('Отзывы')
+                                                        ->schema([
+                                                            TextInput::make('author_name')
+                                                                ->label('Имя автора')
+                                                                ->required()
+                                                                ->columnSpanFull(),
+                                                            TextInput::make('author_position')
+                                                                ->label('Должность автора')
+                                                                ->columnSpanFull(),
+                                                            FileUpload::make('author_avatar')
+                                                                ->label('Фото автора')
+                                                                ->image()
+                                                                ->directory('blocks/reviews/avatars')
+                                                                ->visibility('public')
+                                                                ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg', 'image/svg+xml'])
+                                                                ->maxSize(1024)
+                                                                ->preserveFilenames()
+                                                                ->storeFileNamesIn('author_avatar_filename'),
+                                                            TextInput::make('author_avatar_alt')
+                                                                ->label('Alt текст для фото автора')
+                                                                ->helperText('Описание изображения для поисковых систем'),
+                                                            TextInput::make('title')
+                                                                ->label('Заголовок')
+                                                                ->columnSpanFull(),
+                                                            RichEditor::make('text')
+                                                                ->label('Текст отзыва')
+                                                                ->required()
+                                                                ->columnSpanFull(),
+                                                            Select::make('rating')
+                                                                ->label('Рейтинг')
+                                                                ->options([
+                                                                    '1' => '1 звезда',
+                                                                    '2' => '2 звезды',
+                                                                    '3' => '3 звезды',
+                                                                    '4' => '4 звезды',
+                                                                    '5' => '5 звезд',
+                                                                ])
+                                                                ->default('5'),
+                                                            Forms\Components\Toggle::make('show_rating')
+                                                                ->label('Показывать рейтинг')
+                                                                ->default(true),
+                                                            TextInput::make('sort')
+                                                                ->label('Сортировка')
+                                                                ->numeric()
+                                                                ->default(0),
+                                                        ])
+                                                        ->itemLabel(fn (array $state): ?string => $state['author_name'] ?? 'Отзыв')
+                                                        ->defaultItems(0)
+                                                        ->reorderable()
+                                                        ->columnSpanFull(),
+                                                ];
 
                                             default:
                                                 return [];
@@ -398,6 +468,7 @@ class BlockResource extends Resource
                         'partners' => 'Партнеры',
                         'about' => 'О Компании',
                         'faq' => 'Частые вопросы',
+                        'reviews' => 'Отзывы',
                         default => $state,
                     })
                     ->sortable(),
