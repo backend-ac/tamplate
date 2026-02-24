@@ -83,39 +83,39 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
     
-    const images = document.querySelectorAll(".certificate__slide");
+    // const images = document.querySelectorAll(".certificate__slide");
 
-    images.forEach((image) => {
-        image.addEventListener("click", function () {
-            if (!document.fullscreenElement) {
-                // Вход в полноэкранный режим
-                if (image.requestFullscreen) {
-                    image.requestFullscreen();
-                } else if (image.webkitRequestFullscreen) { // Safari
-                    image.webkitRequestFullscreen();
-                } else if (image.msRequestFullscreen) { // IE11
-                    image.msRequestFullscreen();
-                }
-                image.classList.add("fullscreen"); // Добавляем класс для смены курсора
-            } else {
-                // Выход из полноэкранного режима
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.webkitExitFullscreen) { // Safari
-                    document.webkitExitFullscreen();
-                } else if (document.msExitFullscreen) { // IE11
-                    document.msExitFullscreen();
-                }
-                image.classList.remove("fullscreen"); // Убираем класс при выходе из полноэкранного режима
-            }
-        });
-    });
-    if (!document.fullscreenElement) {
-        // При выходе из полноэкранного режима убираем класс со всех изображений
-        images.forEach((image) => {
-            image.classList.remove("fullscreen");
-        });
-    };
+    // images.forEach((image) => {
+    //     image.addEventListener("click", function () {
+    //         if (!document.fullscreenElement) {
+    //             // Вход в полноэкранный режим
+    //             if (image.requestFullscreen) {
+    //                 image.requestFullscreen();
+    //             } else if (image.webkitRequestFullscreen) { // Safari
+    //                 image.webkitRequestFullscreen();
+    //             } else if (image.msRequestFullscreen) { // IE11
+    //                 image.msRequestFullscreen();
+    //             }
+    //             image.classList.add("fullscreen"); // Добавляем класс для смены курсора
+    //         } else {
+    //             // Выход из полноэкранного режима
+    //             if (document.exitFullscreen) {
+    //                 document.exitFullscreen();
+    //             } else if (document.webkitExitFullscreen) { // Safari
+    //                 document.webkitExitFullscreen();
+    //             } else if (document.msExitFullscreen) { // IE11
+    //                 document.msExitFullscreen();
+    //             }
+    //             image.classList.remove("fullscreen"); // Убираем класс при выходе из полноэкранного режима
+    //         }
+    //     });
+    // });
+    // if (!document.fullscreenElement) {
+    //     // При выходе из полноэкранного режима убираем класс со всех изображений
+    //     images.forEach((image) => {
+    //         image.classList.remove("fullscreen");
+    //     });
+    // };
 
     const modal = document.querySelector('.modal');
     const openModal = document.querySelectorAll('.open-modal');
