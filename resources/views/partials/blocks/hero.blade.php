@@ -3,8 +3,29 @@
       <div class="swiper-wrapper">
                 @php
                     $banners = $data['banners'] ?? [];
+                    $title = $data['title'] ?? null;
+                    $subtitle = $data['subtitle'] ?? null;
+                    $text = $data['text'] ?? null;
+                    $cta_text = $data['cta_text'] ?? null;
+                    $cta_href = $data['cta_href'] ?? null;
+                    
+                    // If banners are empty but we have a title, create a banner from the main data
                     if (empty($banners) && isset($data['title'])) {
-                        $banners = [$data];
+                        $banners = [[
+                            'title' => $title,
+                            'subtitle' => $subtitle,
+                            'text' => $text,
+                            'cta_text' => $cta_text,
+                            'cta_href' => $cta_href,
+                        ]];
+                    }
+                    // If we have banners but they don't have titles, add the main title/subtitle to the first banner
+                    elseif (!empty($banners) && isset($banners[0]) && empty($banners[0]['title']) && !empty($title)) {
+                        $banners[0]['title'] = $title;
+                        $banners[0]['subtitle'] = $subtitle;
+                        $banners[0]['text'] = $text;
+                        $banners[0]['cta_text'] = $cta_text;
+                        $banners[0]['cta_href'] = $cta_href;
                     }
                 @endphp
                 @forelse($banners as $key => $banner)

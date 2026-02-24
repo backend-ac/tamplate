@@ -123,6 +123,13 @@ class CreateBlock extends CreateRecord
         if ($extension === 'pdf') {
             return $imagePath;
         }
+        
+        // Check if the path starts with 'livewire-tmp' which indicates a temporary upload
+        // Return the original path for temporary uploads to prevent disappearing images
+        if (str_starts_with($imagePath, 'livewire-tmp')) {
+            Log::info('Skipping WebP conversion for temporary upload', ['path' => $imagePath]);
+            return $imagePath;
+        }
 
         try {
             $disk = Storage::disk('public');
@@ -132,12 +139,18 @@ class CreateBlock extends CreateRecord
                 return $imagePath;
             }
 
-            // Get full path
-            $fullPath = storage_path('app/public/' . $imagePath);
-            
             // Create new WebP filename
             $pathInfo = pathinfo($imagePath);
             $webpPath = $pathInfo['dirname'] . '/' . $pathInfo['filename'] . '.webp';
+            
+            // If WebP version already exists, return it
+            if ($disk->exists($webpPath)) {
+                Log::info('WebP version already exists', ['webp' => $webpPath]);
+                return $webpPath;
+            }
+            
+            // Get full path
+            $fullPath = storage_path('app/public/' . $imagePath);
             $webpFullPath = storage_path('app/public/' . $webpPath);
 
             // Convert to WebP using Intervention Image v3
@@ -145,15 +158,18 @@ class CreateBlock extends CreateRecord
             $image = $manager->read($fullPath);
             $image->toWebp(90)->save($webpFullPath);
 
-            // Delete original file
-            $disk->delete($imagePath);
+            // Keep the original file for this request to prevent UI issues
+            // We'll delete it on subsequent requests when the WebP version is used
+            // $disk->delete($imagePath);
 
             Log::info('Image converted to WebP', [
                 'original' => $imagePath,
                 'webp' => $webpPath
             ]);
 
-            return $webpPath;
+            // Return the original path for this request to prevent UI issues
+            // The WebP version will be used on subsequent requests
+            return $imagePath;
         } catch (\Exception $e) {
             Log::error('Failed to convert image to WebP', [
                 'path' => $imagePath,
