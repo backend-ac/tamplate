@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // },
     });
     const certificateSlider = new Swiper('.certificate__slider', {
-        speed: 700,
+        speed: 1500,
         spaceBetween: 30,
         loop: true,
         breakpoints: {
@@ -70,16 +70,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 slidesPerView: 5.4,
             },
         },
-
         navigation: {
             nextEl: '.certificate__slider .swiper-button-next',
             prevEl: '.certificate__slider .swiper-button-prev',
         },
-        // autoplay: {
-        //     delay: 3500,
-        //     stopOnLastSlide: false,
-        //     disableOnInteraction: false,
-        // },
+        autoplay: {
+            delay: 3500,
+            stopOnLastSlide: false,
+            disableOnInteraction: false,
+        },
     });
 
 
