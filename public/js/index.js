@@ -122,16 +122,20 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const openModal = document.querySelectorAll('.open-modal');
     const cloeModal = document.querySelector('.close-modal');
 
-    openModal.forEach((open) => {
-        open.addEventListener('click', () => {
-            modal.classList.add('active');
-            document.documentElement.style.overflow = "hidden";
-        });
-    });
-    cloeModal.addEventListener('click', () => {
-        modal.classList.remove('active');
-        document.documentElement.style.overflow = "auto";
-    });
+    if(openModal.length) {
+      openModal.forEach((open) => {
+          open.addEventListener('click', () => {
+              modal.classList.add('active');
+              document.documentElement.style.overflow = "hidden";
+          });
+      });
+    }
+    if(cloeModal) {
+      cloeModal.addEventListener('click', () => {
+          modal.classList.remove('active');
+          document.documentElement.style.overflow = "auto";
+      });
+    }
 
     $('input[type="tel"]').on('click', function () {
     }).mask('+7 (999) 999 99 99');
