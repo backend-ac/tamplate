@@ -8,7 +8,7 @@
                     <div class="swiper-slide">
                         <div class="certificate__slide">
                             @php($file = is_array($img) ? ($img['value'] ?? $img['img'] ?? '') : $img)
-                            <img id="fullscreenImage" src="{{ str_starts_with($file, 'blocks/') ? asset('storage/' . $file) : asset('img/' . $file) }}" alt="{{ $img['alt'] ?? $data['title'] ?? '' }}">
+                            <img data-fancybox data-src="{{ str_starts_with($file, 'blocks/') ? asset('storage/' . $file) : asset('img/' . $file) }}" src="{{ str_starts_with($file, 'blocks/') ? asset('storage/' . $file) : asset('img/' . $file) }}" alt="{{ $img['alt'] ?? $data['title'] ?? '' }}">
                         </div>
                     </div>
                 @endforeach
