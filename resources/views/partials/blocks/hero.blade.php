@@ -17,8 +17,8 @@
                             @else
                                 <h2 class="title">{{ $banner['title'] ?? '' }}</h2>
                             @endif
-                            <p>{{ $banner['subtitle'] ?? '' }}</p>
-                            @if(($banner['text'] ?? null))<p>{{ $banner['text'] }}</p>@endif
+                            <div class="hero__subtitle">{!! $banner['subtitle'] ?? '' !!}</div>
+                            @if(($banner['text'] ?? null))<div class="hero__text">{!! $banner['text'] !!}</div>@endif
                             @if(($banner['cta_text'] ?? null))
                                 @if(!empty($banner['cta_href']))
                                     <a class="btn-hov" href="{{ $banner['cta_href'] }}">{{ $banner['cta_text'] }}</a>
@@ -35,7 +35,8 @@
                     <div class="container">
                         <div class="hero__content">
                             <h1 class="title"></h1>
-                            <p></p>
+                            <div class="hero__subtitle"></div>
+                            <div class="hero__text"></div>
                         </div>
                     </div>
                 </div>
