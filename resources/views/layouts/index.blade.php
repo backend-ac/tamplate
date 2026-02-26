@@ -82,7 +82,6 @@
     @include('layouts.footer')
 
 </div>
-@if($hasModal ?? false)
 <div class="modal">
     <div class="container">
         <div class="modal-wrapper">
@@ -115,7 +114,6 @@
         </div>
     </div>
 </div>
-@endif
 <script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('js/jquery.maskedinput.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js?_v=20250416184948"></script>
