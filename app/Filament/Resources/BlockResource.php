@@ -193,8 +193,41 @@ class BlockResource extends Resource
                                                         ->columnSpanFull(),
                                                 ];
 
-                                            case 'assortment':
                                             case 'supplies':
+                                                return [
+                                                    Repeater::make('items')
+                                                        ->label('Элементы')
+                                                        ->schema([
+                                                            FileUpload::make('img')
+                                                                ->label('Изображение')
+                                                                ->image()
+                                                                ->directory('blocks/items')
+                                                                ->visibility('public')
+                                                                ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/jpg', 'image/svg+xml'])
+                                                                ->maxSize(3072)
+                                                                ->preserveFilenames()
+                                                                ->storeFileNamesIn('img_filename')
+                                                                ->helperText('PNG, JPG, WEBP, SVG (макс 3МБ)'),
+                                                            TextInput::make('img_alt')
+                                                                ->label('Alt текст для изображения')
+                                                                ->helperText('Описание изображения для поисковых систем'),
+                                                            TextInput::make('title')->label('Заголовок элемента'),
+                                                            RichEditor::make('text')->label('Текст элемента'),
+                                                            TextInput::make('price')
+                                                                ->label('Цена')
+                                                                ->helperText('Например: от 1000₽ или 500₽/м²'),
+                                                            TextInput::make('button_text')
+                                                                ->label('Текст кнопки')
+                                                                ->helperText('Например: Заказать услугу'),
+                                                            TextInput::make('button_href')
+                                                                ->label('Ссылка кнопки')
+                                                                ->helperText('Оставьте пустым для открытия модального окна'),
+                                                        ])
+                                                        
+                                                        ->columnSpanFull(),
+                                                ];
+                                            
+                                            case 'assortment':
                                             case 'why_us':
                                             case 'stations':
                                             case 'advantages':
