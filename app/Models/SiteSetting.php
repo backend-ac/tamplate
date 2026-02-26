@@ -24,6 +24,7 @@ class SiteSetting extends Model
         'default_meta_keywords',
         'og_image',
         'default_meta_tags',
+        'footer_logo',
     ];
 
     protected $casts = [
