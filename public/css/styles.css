@@ -171,6 +171,10 @@
     object-fit: cover;
 }
 
+.reviews__slider .swiper-wrapper {
+  padding: 10px 0;
+}
+
 @media (max-width: 1440px) {
   .header__nav ul {
     gap: 50px;
