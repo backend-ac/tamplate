@@ -365,7 +365,7 @@
 
 .assortment__card img {
   max-width: 100%;
-  width: 100%;
+  /* width: 100%; */
 }
 
 .assortment__card h3 {
