@@ -3,7 +3,7 @@
         <h2 class="title">{{ $data['title'] ?? '' }}</h2>
         <p>{!! $data['description'] ?? '' !!}</p>
         @if(($data['text'] ?? null))<p>{!! $data['text'] !!}</p>@endif
-        <div class="assortment__wrapper">
+        <div class="assortment__wrapper flex">
             @foreach(($data['items'] ?? []) as $item)
                 @php($img = is_array($item) ? ($item['img'] ?? $item['value'] ?? 'assortment-img.svg') : 'assortment-img.svg')
                 @php($title = is_array($item) ? ($item['title'] ?? '') : (string)$item)
