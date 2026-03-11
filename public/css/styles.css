@@ -368,11 +368,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
 }
 
 .assortment__wrapper.flex .assortment__card {
   width: 100%;
-  max-width: 300px;
+  max-width: 400px;
 }
 
 .assortment__card img {
