@@ -158,6 +158,7 @@
 .about__text ul,
 .about__text ul li {
   list-style-type: disc;
+  list-style-position: inside;
 }
 
 .about__right {
