@@ -357,10 +357,22 @@
   gap: 30px;
   margin-top: 50px;
 }
+
+.assortment__wrapper.flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .assortment__card {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.assortment__wrapper.flex .assortment__card {
+  width: 100%;
+  max-width: 300px;
 }
 
 .assortment__card img {
