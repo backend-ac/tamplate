@@ -2,8 +2,8 @@
     <div class="why-us__wrapper">
         <div class="why-us__left">
             <h2 class="title">{{ $data['title'] ?? '' }}</h2>
-            <p>{{ $data['description'] ?? '' }}</p>
-            @if(($data['text'] ?? null))<p>{{ $data['text'] }}</p>@endif
+            {!! $data['description'] ?? '' !!}
+            @if(($data['text'] ?? null)){!! $data['text'] !!}@endif
             @if(($data['cta_text'] ?? null))
                 <a href="{{ $data['cta_href'] ?? 'javascript:;' }}" class="btn-hov open-modal">{{ $data['cta_text'] }}</a>
             @endif
@@ -17,7 +17,7 @@
                     <img src="{{ str_starts_with($img, 'blocks/') ? asset('storage/' . $img) : asset('img/' . $img) }}" alt="{{ $item['img_alt'] ?? $title }}">
                     <div class="why-us__desc">
                         @if($title !== '')<h3>{{ $title }}</h3>@endif
-                        @if($text !== '')<p>{{ $text }}</p>@endif
+                        @if($text !== ''){!! $text !!}@endif
                     </div>
                 </div>
             @endforeach

@@ -1,6 +1,6 @@
 <section class="advantages assortment container indent">
     <h2 class="title">{{ $data['title'] ?? '' }}</h2>
-    @if(($data['text'] ?? null))<p>{{ $data['text'] }}</p>@endif
+    @if(($data['text'] ?? null)){!! $data['text'] !!}@endif
     <div class="assortment__wrapper">
         @foreach(($data['items'] ?? []) as $item)
             @php($img = is_array($item) ? ($item['img'] ?? $item['value'] ?? 'assortment-img.svg') : 'assortment-img.svg')
@@ -9,7 +9,7 @@
             <div class="assortment__card">
                 <img src="{{ str_starts_with($img, 'blocks/') ? asset('storage/' . $img) : asset('img/' . $img) }}" alt="{{ $item['img_alt'] ?? $title }}">
                 @if($title !== '')<h3>{{ $title }}</h3>@endif
-                @if($text !== '') <p>{{ $text }}</p> @endif
+                @if($text !== '') {!! $text !!} @endif
             </div>
         @endforeach
     </div>
