@@ -7,11 +7,11 @@
         @endif
 
         <div class="reviews__container">
-            <h2 class="title">{{ $data['title'] ?? 'Отзывы' }}</h2>
-            <div class="reviews__text">{!! $data['text'] ?? '' !!}</div>
+            <h2 class="title" data-aos="fade-down">{{ $data['title'] ?? 'Отзывы' }}</h2>
+            <div class="reviews__text" data-aos="fade-down">{!! $data['text'] ?? '' !!}</div>
             
             @if(isset($data['items']) && is_array($data['items']) && count($data['items']) > 0)
-                <div class="reviews__items">
+                <div class="reviews__items" data-aos="fade-down">
                     @php
                         // Sort items by sort field if available
                         $items = collect($data['items'])->sortBy('sort')->values()->all();

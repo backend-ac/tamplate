@@ -1,6 +1,6 @@
 <section class="supplies indent">
     <div class="supplies__wrapper container">
-        <h2 class="title">{{ $data['title'] ?? '' }}</h2>
+        <h2 class="title" data-aos="fade-down">{{ $data['title'] ?? '' }}</h2>
         <p>{!! $data['description'] ?? '' !!}</p>
         @if(($data['text'] ?? null))<p>{!! $data['text'] !!}</p>@endif
         <div class="assortment__wrapper flex">
@@ -11,7 +11,7 @@
                 @php($price = is_array($item) ? ($item['price'] ?? '') : '')
                 @php($buttonText = is_array($item) ? ($item['button_text'] ?? '') : '')
                 @php($buttonHref = is_array($item) ? ($item['button_href'] ?? '') : '')
-                <div class="assortment__card">
+                <div class="assortment__card" data-aos="fade-down">
                     <img src="{{ str_starts_with($img, 'blocks/') ? asset('storage/' . $img) : asset('img/' . $img) }}" alt="{{ $item['img_alt'] ?? $title }}">
                     @if($title !== '')<h3>{{ $title }}</h3>@endif
                     @if($text !== '')<div class="assortment__card-text">{!! $text !!}</div>@endif
@@ -30,9 +30,9 @@
         </div>
         @if(($data['cta_text'] ?? null))
             @if(!empty($data['cta_href']))
-                <a href="{{ $data['cta_href'] }}" class="btn-hov">{{ $data['cta_text'] }}</a>
+                <a href="{{ $data['cta_href'] }}" class="btn-hov" data-aos="fade-down">{{ $data['cta_text'] }}</a>
             @else
-                <a href="javascript:;" class="btn-hov open-modal">{{ $data['cta_text'] }}</a>
+                <a href="javascript:;" class="btn-hov open-modal" data-aos="fade-down">{{ $data['cta_text'] }}</a>
             @endif
         @endif
     </div>

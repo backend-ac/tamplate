@@ -1,8 +1,8 @@
 <section class="faq indent">
     <div class="container">
         <div class="faq__container">
-            <h2 class="title">{{ $data['title'] ?? 'Частые вопросы' }}</h2>
-            <div class="faq__text">{!! $data['text'] ?? '' !!}</div>
+            <h2 class="title" data-aos="fade-down">{{ $data['title'] ?? 'Частые вопросы' }}</h2>
+            <div class="faq__text" data-aos="fade-down">{!! $data['text'] ?? '' !!}</div>
             
             @if(isset($data['items']) && is_array($data['items']) && count($data['items']) > 0)
                 <div class="faq__items">
@@ -11,7 +11,7 @@
                     @endphp
                     
                     @foreach($items as $index => $item)
-                        <div class="faq__item">
+                        <div class="faq__item" data-aos="fade-right">
                             <div class="faq__question">
                                 <h3>{{ $item['question'] ?? '' }}</h3>
                                 <div class="faq__toggle">
