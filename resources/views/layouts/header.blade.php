@@ -1,4 +1,4 @@
-<header class="header">
+<header class="header" data-aos="fade-down">
     <div class="container">
         <div class="header__wrapper">
             <a href="/"><img src="{{  asset('storage/' . $siteSettings?->logo) ?? asset('img/logo.svg') }}" alt=""></a>
