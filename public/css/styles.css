@@ -155,6 +155,14 @@
   line-height: 158%;
 }
 
+.about__text h2 {
+  font-size: 24px;
+}
+
+.about__text h3 {
+  font-size: 22px;
+}
+
 .about__text ul,
 .about__text ul li {
   list-style-type: disc;
