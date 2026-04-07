@@ -153,8 +153,8 @@ window.onload = () => {
         delay: 5000,
       },
       navigation: {
-        prevEl: '.hero__nav-btn .swiper-button-prev',
-        nextEl: '.hero__nav-btn .swiper-button-next'
+        prevEl: '.hero-swiper-button-prev',
+        nextEl: '.hero-swiper-button-next'
       }
     });
 }

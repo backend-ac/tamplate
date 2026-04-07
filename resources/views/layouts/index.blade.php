@@ -120,7 +120,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.min.js?_v=20250416184948"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script src="{{ asset('js/jquery.fancybox.min.js') }}"></script>
-<script src="{{ asset('js/index.js?v=1.12') }}"></script>
+<script src="{{ asset('js/index.js?v=1.13') }}"></script>
 <script src="{{ asset('js/smooth-scroll.js?v=1.0') }}"></script>
 <script>
   AOS.init({
