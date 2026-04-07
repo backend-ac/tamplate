@@ -18,10 +18,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const lang = document.querySelector('.header__lang');
     const langGroup = document.querySelector('.header__lang-group');
 
-    lang.addEventListener('click', () => {
-        langGroup.classList.toggle('active');
-        lang.classList.toggle('active');
-    });
+    if(lang) {
+      lang.addEventListener('click', () => {
+          langGroup.classList.toggle('active');
+          lang.classList.toggle('active');
+      });
+    }
 
     const modelSlider = new Swiper('.office__slider', {
         speed: 700,
