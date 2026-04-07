@@ -13,7 +13,7 @@
                     </div>
                 @endforeach
             </div>
-            <div class="sertificate__btn">
+            <div class="certificate__btn">
               <div class="swiper-button-prev">
                   <svg style="transform: rotate(180deg);" width="84" height="84" viewBox="0 0 84 84" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M42 82C64.0914 82 82 64.0914 82 42C82 19.9086 64.0914 2 42 2C19.9086 2 2 19.9086 2 42C2 64.0914 19.9086 82 42 82Z" fill="#DD2B1C" stroke="#DD2B1C" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
