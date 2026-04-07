@@ -65,8 +65,8 @@
       </div>
       <div class="container">
         <div class="hero__nav-btn">
-            <div class="swiper-button-prev">@include('partials.svg.hero-prev')</div>
-            <div class="swiper-button-next">@include('partials.svg.hero-next')</div>
+            <div class="hero-swiper-button-prev">@include('partials.svg.hero-prev')</div>
+            <div class="hero-swiper-button-next">@include('partials.svg.hero-next')</div>
         </div>
       </div>
     </div>
