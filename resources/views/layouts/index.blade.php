@@ -57,8 +57,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/8.4.5/swiper-bundle.css?_v=20250416184948">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/jquery.fancybox.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/styles.css?v=1.21') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css?v=1.1') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css?v=1.22') }}">
     
     {{-- Head Metrics --}}
     @if($siteSettings && $siteSettings->head_metrics)
