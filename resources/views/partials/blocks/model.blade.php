@@ -1,7 +1,7 @@
 <section class="model container indent">
     @if(isset($data['title_1']))
         <h2 class="title">{{ $data['title_1'] }}</h2>
-        @if(($data['text_1'] ?? null))<p>{{ $data['text_1'] }}</p>@endif
+        @if(($data['text_1'] ?? null)){!! $data['text_1'] !!}@endif
     @endif
     <div class="model__wrapper">
         @foreach(($data['images_1'] ?? []) as $img)
@@ -11,7 +11,7 @@
     </div>
     @if(isset($data['title_2']))
         <h2 class="title">{{ $data['title_2'] }}</h2>
-        @if(($data['text_2'] ?? null))<p>{{ $data['text_2'] }}</p>@endif
+        @if(($data['text_2'] ?? null)){!! $data['text_2'] !!}@endif
     @endif
     <div class="model__wrapper">
         @foreach(($data['images_2'] ?? []) as $img)
