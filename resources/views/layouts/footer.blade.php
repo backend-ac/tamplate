@@ -11,7 +11,13 @@
                     @foreach($contacts as $contact)
                         <li>
                             @if(!empty($contact['address']))
-                                <p>{{ $contact['address'] }}</p>
+                                @if(!empty($contact['address_link']))
+                                    <a href="{{ $contact['address_link'] }}" target="_blank" rel="noopener noreferrer">
+                                        <p>{{ $contact['address'] }}</p>
+                                    </a>
+                                @else
+                                    <p>{{ $contact['address'] }}</p>
+                                @endif
                             @endif
                             @if(!empty($contact['phones']))
                                 @foreach($contact['phones'] as $phone)

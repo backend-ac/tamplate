@@ -68,6 +68,12 @@ class SiteSettingResource extends Resource
                                     ->label('Адрес')
                                     ->rows(2)
                                     ->columnSpanFull(),
+                                TextInput::make('address_link')
+                                    ->label('Ссылка на адрес')
+                                    ->url()
+                                    ->placeholder('https://yandex.ru/maps/...')
+                                    ->helperText('Ссылка на карту (Яндекс.Карты, Google Maps и т.д.)')
+                                    ->columnSpanFull(),
                                 Repeater::make('phones')
                                     ->label('Телефоны')
                                     ->schema([
