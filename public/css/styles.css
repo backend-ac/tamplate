@@ -191,6 +191,19 @@
   padding: 10px 0;
 }
 
+.header__logo {
+  display: flex;
+  width: 180px;
+  height: 70px;
+  flex-shrink: 0;
+}
+
+.header__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 @media (max-width: 1440px) {
   .header__nav ul {
     gap: 50px;
@@ -203,6 +216,10 @@
   }
 }
 @media (max-width: 992px) {
+  .header__logo {
+    width: 120px;
+    height: auto;
+  }
   .header__wrapper {
     padding: 20px;
   }
