@@ -58,7 +58,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/jquery.fancybox.css') }}">
     <link rel="stylesheet" href="{{ asset('css/main.css?v=1.1') }}">
-    <link rel="stylesheet" href="{{ asset('css/styles.css?v=1.23') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css?v=1.24') }}">
     
     {{-- Head Metrics --}}
     @if($siteSettings && $siteSettings->head_metrics)

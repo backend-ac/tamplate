@@ -450,10 +450,10 @@
   .assortment__card h3 {
     font-size: 20px;
   }
-  .assortment__card img {
+  /* .assortment__card img {
     width: 80px;
     height: 80px;
-  }
+  } */
 }
 @media (max-width: 540px) {
   .assortment__wrapper {
